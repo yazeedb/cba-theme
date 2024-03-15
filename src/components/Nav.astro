@@ -1,0 +1,33 @@
+---
+const links = [
+  { text: 'Home', href: '/' },
+  { text: 'About', href: '/about' },
+  { text: '', href: '', isDummy: true },
+  { text: 'History', href: '/history' },
+  { text: 'Events', href: '/events' }
+];
+
+const currentUrl = Astro.url.pathname;
+---
+
+<nav class="bg-primary-green">
+  <ul
+    class="text-primary-header-light flex justify-between max-w-[600px] m-auto p-7 relative"
+  >
+    {
+      links.map((link) => (
+        <li class={currentUrl === link.href ? 'text-cta-color font-bold' : ''}>
+          <a href={link.href}>{link.text}</a>
+
+          {link.isDummy ? (
+            <img
+              src="cba-logo.png"
+              alt="CBA Logo"
+              class="absolute top-0 left-[42%] w-[15%]"
+            />
+          ) : null}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
