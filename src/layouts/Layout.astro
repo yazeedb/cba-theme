@@ -28,4 +28,8 @@ const { title } = Astro.props;
   html {
     font-family: montserrat, system-ui, sans-serif;
   }
+
+  .cta-button {
+    @apply bg-cta-color text-cta-text-color active:bg-yellow-600 font-bold text-lg px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150;
+  }
 </style>
