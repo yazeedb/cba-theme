@@ -35,7 +35,11 @@ const currentUrl = Astro.url.pathname;
   >
     {
       links.map((link) => (
-        <li class={currentUrl === link.href ? 'text-cta-color font-bold' : ''}>
+        <li
+          class={cn({
+            'text-cta-color font-bold': currentUrl === link.href
+          })}
+        >
           <a href={link.href}>{link.text}</a>
 
           {link.isDummy ? (
@@ -83,12 +87,12 @@ const currentUrl = Astro.url.pathname;
           links
             .filter((link) => !link.isDummy)
             .map((link) => (
-              <li class="mb-1">
+              <li class="mb-1 text-primary-header-light">
                 <a
-                  class={cn('block p-4 text-sm text-primary-header-light', {
+                  href={link.href}
+                  class={cn('block p-4 text-sm', {
                     'text-cta-color font-bold': currentUrl === link.href
                   })}
-                  href={link.href}
                 >
                   {link.text}
                 </a>
