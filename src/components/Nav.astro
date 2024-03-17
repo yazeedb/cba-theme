@@ -26,7 +26,12 @@ const currentUrl = Astro.url.pathname;
     </button>
 
     <a href="/" class="mx-auto">
-      <img src="cba-logo.png" alt="CBA Logo" class="h-14" />
+      <img
+        id="top-nav-mobile-logo"
+        src="cba-logo.png"
+        alt="CBA Logo"
+        class="h-14"
+      />
     </a>
   </div>
 
@@ -43,11 +48,14 @@ const currentUrl = Astro.url.pathname;
           <a href={link.href}>{link.text}</a>
 
           {link.isDummy ? (
-            <img
-              src="cba-logo.png"
-              alt="CBA Logo"
-              class="absolute top-0 left-[42%] w-[15%]"
-            />
+            <a href="/">
+              <img
+                id="top-nav-desktop-logo"
+                src="cba-logo.png"
+                alt="CBA Logo"
+                class="z-10 absolute top-2 left-[42%] w-[15%]"
+              />
+            </a>
           ) : null}
         </li>
       ))
@@ -62,7 +70,12 @@ const currentUrl = Astro.url.pathname;
   >
     <div class="flex items-center mb-8">
       <a class="mr-auto text-3xl font-bold leading-none" href="/">
-        <img src="cba-logo.png" alt="CBA Logo" class="h-14" />
+        <img
+          id="side-nav-logo"
+          src="cba-logo.png"
+          alt="CBA Logo"
+          class="h-14"
+        />
       </a>
 
       <button class="navbar-close">

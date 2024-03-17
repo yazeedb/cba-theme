@@ -33,6 +33,29 @@ const tenants = [
       'To invest in the younger generation, providing them with opportunities to learn, participate, and lead within the community.'
   }
 ];
+
+interface BoardMember {
+  first_name: string;
+  last_name: string;
+  position: string;
+  team: string;
+}
+
+const res = await fetch(
+  'http://localhost:8888/wordpress/wp-json/wp/v2/board_members?per_page=100'
+);
+const posts = await res.json();
+const boardMembers: BoardMember[] = posts.map((p: any) => p.acf);
+
+const teamMap = new Map<string, BoardMember[]>();
+
+for (const member of boardMembers.reverse()) {
+  if (teamMap.has(member.team)) {
+    teamMap.get(member.team)?.push(member);
+  } else {
+    teamMap.set(member.team, [member]);
+  }
+}
 ---
 
 <Layout title="About">
@@ -40,32 +63,32 @@ const tenants = [
     <Nav />
 
     <div
-      class="relative w-full h-screen bg-cover bg-center"
+      class="flex items-center relative w-full h-screen bg-cover bg-center"
       style="background-image: url('/cba-photo.jpeg');"
     >
-      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
       <div
-        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center"
+        class="flex items-center bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"
       >
-        <h1 class="section-heading text-primary-header-light pb-4">
-          Our Mission
-        </h1>
+        <div class="text-center max-w-[80%] md:max-w-[66%] mx-auto">
+          <h1 class="section-heading text-primary-header-light pb-4">
+            Our Mission
+          </h1>
 
-        <p class="italic section-paragraph">
-          “…study and foster all matters pertaining to the welfare of the
-          Circassians in America… and to strengthen the cooperative ties among
-          the Circassians wherever they may be to preserve and nurture the
-          Circassian heritage.”
-        </p>
+          <p class="italic section-paragraph text-paragraph-light">
+            “…study and foster all matters pertaining to the welfare of the
+            Circassians in America… and to strengthen the cooperative ties among
+            the Circassians wherever they may be to preserve and nurture the
+            Circassian heritage.”
+          </p>
+        </div>
       </div>
     </div>
 
-    <section class="bg-slate-100 text-paragraph-light py-5 px-10">
+    <section class="bg-slate-100 text-paragraph-light py-5 sm:px-10">
       <section class="max-w-[1240px] m-auto py-5 px-10">
         <h2 class="section-heading text-primary-header-dark">Vision</h2>
 
-        <p class="section-paragraph my-4 text-paragraph-dark">
+        <p class="section-paragraph my-4 text-paragraph-dark max-w-[66%]">
           We envision a world where Circassian culture is widely recognized and
           celebrated, and where our community members are empowered to thrive in
           a multicultural society. Our aim is to build bridges of understanding
@@ -76,7 +99,7 @@ const tenants = [
     </section>
 
     <section class="text-paragraph-light py-5 px-10">
-      <section class="max-w-[1240px] m-auto py-5 px-10">
+      <section class="max-w-[1240px] m-auto py-5 sm:px-10">
         <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
 
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -101,11 +124,27 @@ const tenants = [
 
     <section class="bg-slate-100 text-paragraph-light py-5 px-10">
       <section class="max-w-[1240px] m-auto py-5 px-10">
-        <h2 class="section-heading text-primary-header-dark pb-8">
-          Organization
-        </h2>
+        <h2 class="section-heading text-primary-header-dark">Organization</h2>
 
-        <h3 class="text-xl font-bold text-slate-800">Executive Board</h3>
+        {
+          Object.entries(Object.fromEntries(teamMap)).map(([team, members]) => (
+            <section class="py-8">
+              <h3 class="text-xl font-bold text-slate-800 mb-3">{team}</h3>
+
+              <ul class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
+                {members.map((member) => (
+                  <li>
+                    <span class="text-slate-700 block font-bold">
+                      {member.first_name} {member.last_name}
+                    </span>
+
+                    <span class="text-slate-600">{member.position}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
       </section>
     </section>
   </main>
