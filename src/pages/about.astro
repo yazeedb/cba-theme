@@ -1,11 +1,112 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
+import Flag from '../components/svgs/Flag.astro';
+import People from '../components/svgs/People.astro';
+import Book from '../components/svgs/Book.astro';
+import Heart from '../components/svgs/Heart.astro';
+
+const tenants = [
+  {
+    title: 'Cultural Preservation',
+    icon: Flag,
+    description:
+      'To safeguard and share the Circassian culture, language, and traditions through various educational and cultural programs.'
+  },
+  {
+    title: 'Community Engagement',
+    icon: Heart,
+    description:
+      'To strengthen the Circassian community by organizing events, support groups, and initiatives that foster unity and mutual support.'
+  },
+  {
+    title: 'Outreach and Education',
+    icon: Book,
+    description:
+      'To educate the wider public about Circassian history and culture, promoting diversity and intercultural dialogue.'
+  },
+  {
+    title: 'Youth Empowerment',
+    icon: People,
+    description:
+      'To invest in the younger generation, providing them with opportunities to learn, participate, and lead within the community.'
+  }
+];
 ---
 
 <Layout title="About">
   <main>
     <Nav />
+
+    <div
+      class="relative w-full h-screen bg-cover bg-center"
+      style="background-image: url('/cba-photo.jpeg');"
+    >
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center"
+      >
+        <h1 class="section-heading text-primary-header-light pb-4">
+          Our Mission
+        </h1>
+
+        <p class="italic section-paragraph">
+          “…study and foster all matters pertaining to the welfare of the
+          Circassians in America… and to strengthen the cooperative ties among
+          the Circassians wherever they may be to preserve and nurture the
+          Circassian heritage.”
+        </p>
+      </div>
+    </div>
+
+    <section class="bg-slate-100 text-paragraph-light py-5 px-10">
+      <section class="max-w-[1240px] m-auto py-5 px-10">
+        <h2 class="section-heading text-primary-header-dark">Vision</h2>
+
+        <p class="section-paragraph my-4 text-paragraph-dark">
+          We envision a world where Circassian culture is widely recognized and
+          celebrated, and where our community members are empowered to thrive in
+          a multicultural society. Our aim is to build bridges of understanding
+          and cooperation, ensuring that the unique traditions and values of the
+          Circassian people continue to enrich our diverse world.
+        </p>
+      </section>
+    </section>
+
+    <section class="text-paragraph-light py-5 px-10">
+      <section class="max-w-[1240px] m-auto py-5 px-10">
+        <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {
+            tenants.map((tenant) => (
+              <li class="rounded shadow-md border-2 border-slate-300 p-6 flex justify-center flex-col items-center text-center">
+                <tenant.icon />
+
+                <h3 class="section-heading text-primary-header-dark py-2">
+                  {tenant.title}
+                </h3>
+
+                <p class="section-paragraph text-paragraph-dark">
+                  {tenant.description}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </section>
+
+    <section class="bg-slate-100 text-paragraph-light py-5 px-10">
+      <section class="max-w-[1240px] m-auto py-5 px-10">
+        <h2 class="section-heading text-primary-header-dark pb-8">
+          Organization
+        </h2>
+
+        <h3 class="text-xl font-bold text-slate-800">Executive Board</h3>
+      </section>
+    </section>
   </main>
 </Layout>
 
