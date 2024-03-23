@@ -7,6 +7,7 @@ import Flag from '../components/svgs/Flag.astro';
 import People from '../components/svgs/People.astro';
 import Book from '../components/svgs/Book.astro';
 import Heart from '../components/svgs/Heart.astro';
+import { getBoardMembers } from '../data';
 
 const tenants = [
   {
@@ -42,11 +43,7 @@ interface BoardMember {
   team: string;
 }
 
-const res = await fetch(
-  'http://localhost:8888/wordpress/wp-json/wp/v2/board_members?per_page=100'
-);
-const posts = await res.json();
-const boardMembers: BoardMember[] = posts.map((p: any) => p.acf);
+const boardMembers: BoardMember[] = await getBoardMembers();
 
 const teamMap = new Map<string, BoardMember[]>();
 
