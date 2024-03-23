@@ -24,6 +24,7 @@ export const Carousel = () => {
               className="w-full h-full object-cover"
               src={`https://picsum.photos/id/${i + 1}/2000/600`}
               alt="Beautiful landscape"
+              loading="lazy"
             />
           </div>
         </SwiperSlide>
