@@ -32,31 +32,35 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
+  @tailwind components;
+
   html {
     font-family: montserrat, system-ui, sans-serif;
   }
 
-  .cta-button {
-    @apply bg-cta-color text-cta-text-color active:bg-yellow-600 font-bold text-lg px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150;
-  }
+  @layer components {
+    .cta-button {
+      @apply bg-cta-color text-cta-text-color active:bg-yellow-600 font-bold text-lg px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150;
+    }
 
-  .section-heading {
-    @apply text-xl font-bold sm:text-2xl;
-  }
+    .section-heading {
+      @apply text-xl font-bold sm:text-2xl;
+    }
 
-  .section-heading-minor {
-    @apply text-lg font-bold sm:text-xl;
-  }
+    .section-heading-minor {
+      @apply text-lg font-bold sm:text-xl;
+    }
 
-  .section-paragraph {
-    @apply sm:text-lg text-base;
-  }
+    .section-paragraph {
+      @apply sm:text-lg text-base;
+    }
 
-  .gap-base {
-    @apply gap-4;
-  }
+    .gap-base {
+      @apply gap-4;
+    }
 
-  .section-layout {
-    @apply gap-base flex flex-col;
+    .section-layout {
+      @apply gap-base flex flex-col;
+    }
   }
 </style>
