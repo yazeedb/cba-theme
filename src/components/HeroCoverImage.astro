@@ -17,7 +17,10 @@ const { title, subtitle, backgroundImage } = Astro.props;
   <div
     class="flex items-center bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"
   >
-    <Section innerSectionClass="text-center max-w-[80%] md:max-w-[50%] mx-auto">
+    <Section
+      containerClass="w-full"
+      innerSectionClass="text-center max-w-[80%] md:max-w-[50%] mx-auto"
+    >
       <h1 class="text-3xl sm:text-4xl font-bold text-primary-header-light">
         {title}
       </h1>
