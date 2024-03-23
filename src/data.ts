@@ -321,8 +321,7 @@ const books = [
               keywords: []
             }
           },
-          source_url:
-            'http://localhost:8888/wordpress/wp-content/uploads/2024/03/circassian-born-to-be-free.jpeg',
+          source_url: '/circassian-born-to-be-free.jpeg',
           _links: {
             self: [
               {
@@ -512,8 +511,7 @@ const books = [
               keywords: []
             }
           },
-          source_url:
-            'http://localhost:8888/wordpress/wp-content/uploads/2024/03/circassian-genocide.jpeg',
+          source_url: '/circassian-genocide.jpeg',
           _links: {
             self: [
               {
@@ -676,8 +674,7 @@ const books = [
               keywords: []
             }
           },
-          source_url:
-            'http://localhost:8888/wordpress/wp-content/uploads/2024/03/circassian-handbook.jpeg',
+          source_url: '/circassian-handbook.jpeg',
           _links: {
             self: [
               {
