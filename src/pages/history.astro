@@ -1,7 +1,11 @@
 ---
+import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import HeroCoverImage from '../components/HeroCoverImage.astro';
+import CircassianWarrior from '../assets/circassian-warrior.jpeg';
+import CircassianAlphabet from '../assets/circassian-alphabet.jpeg';
+import CircassianFlag from '../assets/circassian-flag.png';
 
 const subtitle =
   "From ancient warriors to a global diaspora, the Circassians' enduring spirit transcends centuries of history and hardship.";
@@ -53,11 +57,7 @@ const subtitle =
           </p>
         </div>
 
-        <img
-          class="w-full md:w-[50%]"
-          src="circassian-warrior.jpeg"
-          alt="A Circassian warrior"
-        />
+        <Picture src={CircassianWarrior} alt="A Circassian warrior" />
       </div>
     </Section>
 
@@ -87,9 +87,9 @@ const subtitle =
           </p>
         </div>
 
-        <img
-          class="w-full md:w-[50%]"
-          src="circassian-alphabet.jpeg"
+        <Picture
+          class="w-full sm:w-1/2 lg:w-full"
+          src={CircassianAlphabet}
           alt="The Circassian Alphabet"
         />
       </div>
@@ -107,11 +107,7 @@ const subtitle =
         Yegeruqway and the Zhaney.
       </p>
 
-      <img
-        class="w-full md:w-2/3"
-        src="circassian-flag.png"
-        alt="The Circassian Flag"
-      />
+      <Picture src={CircassianFlag} alt="The Circassian Flag" />
     </Section>
   </main>
 </Layout>
