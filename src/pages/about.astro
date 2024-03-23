@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
 import Flag from '../components/svgs/Flag.astro';
 import People from '../components/svgs/People.astro';
 import Book from '../components/svgs/Book.astro';
@@ -78,69 +79,63 @@ for (const member of boardMembers.reverse()) {
       </div>
     </div>
 
-    <section class="bg-slate-100 text-paragraph-light py-5 sm:px-10">
-      <section class="section px-10">
-        <h2 class="section-heading text-primary-header-dark">Vision</h2>
+    <Section containerClass="bg-slate-100">
+      <h2 class="section-heading text-primary-header-dark">Vision</h2>
 
-        <p class="section-paragraph my-4 text-paragraph-dark md:max-w-[66%]">
-          We envision a world where Circassian culture is widely recognized and
-          celebrated, and where our community members are empowered to thrive in
-          a multicultural society. Our aim is to build bridges of understanding
-          and cooperation, ensuring that the unique traditions and values of the
-          Circassian people continue to enrich our diverse world.
-        </p>
-      </section>
-    </section>
+      <p class="section-paragraph my-4 text-paragraph-dark md:max-w-[66%]">
+        We envision a world where Circassian culture is widely recognized and
+        celebrated, and where our community members are empowered to thrive in a
+        multicultural society. Our aim is to build bridges of understanding and
+        cooperation, ensuring that the unique traditions and values of the
+        Circassian people continue to enrich our diverse world.
+      </p>
+    </Section>
 
-    <section class="text-paragraph-light py-5 px-10">
-      <section class="section sm:px-10">
-        <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
+    <Section containerClass="text-paragraph-light">
+      <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
 
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {
-            tenants.map((tenant) => (
-              <li class="rounded shadow-md border-2 border-slate-300 p-6 flex justify-center flex-col items-center text-center">
-                <tenant.icon />
-
-                <h3 class="section-heading text-primary-header-dark py-2">
-                  {tenant.title}
-                </h3>
-
-                <p class="section-paragraph text-paragraph-dark">
-                  {tenant.description}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </section>
-
-    <section class="bg-slate-100 text-paragraph-light py-5 px-10">
-      <section class="section px-10">
-        <h2 class="section-heading text-primary-header-dark">Organization</h2>
-
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
-          Object.entries(Object.fromEntries(teamMap)).map(([team, members]) => (
-            <section class="py-8">
-              <h3 class="text-xl font-bold text-slate-800 mb-3">{team}</h3>
+          tenants.map((tenant) => (
+            <li class="rounded shadow-md border-2 border-slate-300 p-6 flex justify-center flex-col items-center text-center">
+              <tenant.icon />
 
-              <ul class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
-                {members.map((member) => (
-                  <li>
-                    <span class="text-slate-700 block font-bold">
-                      {member.first_name} {member.last_name}
-                    </span>
+              <h3 class="section-heading text-primary-header-dark py-2">
+                {tenant.title}
+              </h3>
 
-                    <span class="text-slate-600">{member.position}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+              <p class="section-paragraph text-paragraph-dark">
+                {tenant.description}
+              </p>
+            </li>
           ))
         }
-      </section>
-    </section>
+      </ul>
+    </Section>
+
+    <Section containerClass="bg-slate-100">
+      <h2 class="section-heading text-primary-header-dark">Organization</h2>
+
+      {
+        Object.entries(Object.fromEntries(teamMap)).map(([team, members]) => (
+          <section class="py-8">
+            <h3 class="text-xl font-bold text-slate-800 mb-3">{team}</h3>
+
+            <ul class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
+              {members.map((member) => (
+                <li>
+                  <span class="text-slate-700 block font-bold">
+                    {member.first_name} {member.last_name}
+                  </span>
+
+                  <span class="text-slate-600">{member.position}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </Section>
   </main>
 </Layout>
 

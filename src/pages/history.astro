@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
 ---
 
 <Layout title="History">
@@ -22,53 +23,50 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
 
-    <section class="bg-slate-100 text-paragraph-light py-5 sm:px-10">
-      <section class="section px-10 flex">
-        <div>
-          <h2 class="section-heading text-primary-header-dark">Introduction</h2>
+    <Section containerClass="bg-slate-100" innerSectionClass="flex">
+      <div>
+        <h2 class="section-heading text-primary-header-dark">Introduction</h2>
 
-          <p class="section-paragraph my-4 text-paragraph-dark">
-            Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
-            Адыгэхэр, romanized: Adygekher), are an indigenous Northwest
-            Caucasian ethnic group and a nation; native to the historical
-            country-region of Circassia in the North Caucasus. As a consequence
-            of the Circassian genocide perpetrated by the Russian Empire in the
-            19th century during the Russo-Circassian War, most Circassians were
-            exiled from their homeland in Circassia to modern-day Turkey and the
-            rest of the Middle East, where most of them are today. In the early
-            1990s, the Unrepresented Nations and Peoples Organization estimated
-            that there are as many as 3.7 million Circassians in diaspora in
-            over 50 countries.
-          </p>
-        </div>
+        <p class="section-paragraph my-4 text-paragraph-dark">
+          Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
+          Адыгэхэр, romanized: Adygekher), are an indigenous Northwest Caucasian
+          ethnic group and a nation; native to the historical country-region of
+          Circassia in the North Caucasus. As a consequence of the Circassian
+          genocide perpetrated by the Russian Empire in the 19th century during
+          the Russo-Circassian War, most Circassians were exiled from their
+          homeland in Circassia to modern-day Turkey and the rest of the Middle
+          East, where most of them are today. In the early 1990s, the
+          Unrepresented Nations and Peoples Organization estimated that there
+          are as many as 3.7 million Circassians in diaspora in over 50
+          countries.
+        </p>
+      </div>
 
-        <img src="circassian-warrior.jpeg" alt="A Circassian warrior" />
-      </section>
-    </section>
+      <img src="circassian-warrior.jpeg" alt="A Circassian warrior" />
+    </Section>
 
-    <section class="bg-primary-green text-paragraph-light py-5 px-10">
-      <section class="section px-10 flex">
-        <div>
-          <h2 class="section-heading">Our Language</h2>
+    <Section
+      containerClass="bg-primary-green text-paragraph-light"
+      innerSectionClass="flex"
+    >
+      <div>
+        <h2 class="section-heading">Our Language</h2>
 
-          <p class="section-paragraph my-4">
-            Circassians mainly speak the Circassian languages, two mutually
-            intelligible languages of the Northwest Caucasian language family,
-            namely Adyghe (West Circassian) and Kabardian (East Adyghe). Adyghe
-            is based on Temirgoy (Chemirgoy) dialect, while Kabardian is based
-            on the dialect of the same name. Circassians also speak Russian,
-            Turkish, English, Arabic, and Hebrew in large numbers, having been
-            exiled by Russia to lands of the Ottoman Empire, where the majority
-            of them live today, and some to neighboring Persia, to which they
-            came primarily through mass deportations by the Safavids and Qajars
-            or, to a lesser extent, as muhajirs in the 19th century.
-          </p>
-        </div>
+        <p class="section-paragraph my-4">
+          Circassians mainly speak the Circassian languages, two mutually
+          intelligible languages of the Northwest Caucasian language family,
+          namely Adyghe (West Circassian) and Kabardian (East Adyghe). Adyghe is
+          based on Temirgoy (Chemirgoy) dialect, while Kabardian is based on the
+          dialect of the same name. Circassians also speak Russian, Turkish,
+          English, Arabic, and Hebrew in large numbers, having been exiled by
+          Russia to lands of the Ottoman Empire, where the majority of them live
+          today, and some to neighboring Persia, to which they came primarily
+          through mass deportations by the Safavids and Qajars or, to a lesser
+          extent, as muhajirs in the 19th century.
+        </p>
+      </div>
 
-        <img src="circassian-alphabet.jpeg" alt="The Circassian Alphabet" />
-      </section>
-    </section>
+      <img src="circassian-alphabet.jpeg" alt="The Circassian Alphabet" />
+    </Section>
   </main>
 </Layout>
-
-<style></style>

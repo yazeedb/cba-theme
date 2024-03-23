@@ -1,12 +1,17 @@
-<footer
-  class="text-xs bg-slate-950 text-paragraph-light font-bold p-6 md:text-base"
->
-  <div class="max-w-7xl mx-auto flex flex-col justify-between md:flex-row">
+---
+import Section from '../components/Section.astro';
+---
+
+<footer>
+  <Section
+    containerClass="text-xs bg-slate-950 text-paragraph-light font-bold p-6 md:text-base"
+    innerSectionClass="flex flex-col justify-between md:flex-row"
+  >
     <p>© {new Date().getFullYear()} Circassian Benevolent Association</p>
 
     <p>
       Designed by
       <a href="https://yazeedb.com" class="underline">Yazeed Bzadough </a>
     </p>
-  </div>
+  </Section>
 </footer>
