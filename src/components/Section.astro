@@ -1,0 +1,16 @@
+---
+import cn from 'classnames';
+
+interface Props {
+  containerClass?: string;
+  innerSectionClass?: string;
+}
+
+const { containerClass, innerSectionClass } = Astro.props;
+---
+
+<section class={cn(containerClass)}>
+  <section class={cn('section', innerSectionClass)}>
+    <slot />
+  </section>
+</section>

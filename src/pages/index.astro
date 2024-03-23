@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import NewTabLink from '../components/NewTabLink.astro';
+import Section from '../components/Section.astro';
 import YouTube from '../components/svgs/YouTube.astro';
 import Facebook from '../components/svgs/Facebook.astro';
 import Instagram from '../components/svgs/Instagram.astro';
@@ -12,7 +13,7 @@ import { Carousel } from '../components/Carousel';
   <main>
     <Carousel client:only="react" />
 
-    <section class="section">
+    <Section>
       <section class="flex pb-4 justify-between items-center">
         <h2 class="text-primary-header-dark section-heading">Our Events</h2>
 
@@ -68,70 +69,70 @@ import { Carousel } from '../components/Carousel';
           date="July 5th at 12:00 PM"
         />
       </section>
-    </section>
+    </Section>
 
-    <section class="bg-primary-green text-paragraph-light py-5">
-      <section class="section">
-        <h2 class="section-heading">Learn About the CBA</h2>
+    <Section containerClass="bg-primary-green text-paragraph-light py-5">
+      <h2 class="section-heading">Learn About the CBA</h2>
 
-        <p class="section-paragraph my-4">
-          The Circassian Benevolent Association, nestled in the quaint town of
-          Wayne, New Jersey, stands as a beacon of cultural heritage and
-          community spirit. Established in the late 19th century by early
-          Circassian immigrants, this association has been a cornerstone of
-          support and cultural preservation for the Circassian community in
-          America.
+      <p class="section-paragraph my-4">
+        The Circassian Benevolent Association, nestled in the quaint town of
+        Wayne, New Jersey, stands as a beacon of cultural heritage and community
+        spirit. Established in the late 19th century by early Circassian
+        immigrants, this association has been a cornerstone of support and
+        cultural preservation for the Circassian community in America.
+      </p>
+
+      <a class="cta-button" href="/about">Read more</a>
+    </Section>
+
+    <Section containerClass="bg-primary-green text-paragraph-light py-5">
+      <h2 class="section-heading">Circassian History</h2>
+
+      <div class="section-paragraph my-4">
+        <p>
+          Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
+          Адыгэхэр, romanized: Adygekher), are an indigenous Northwest Caucasian
+          ethnic group and nation native to the historical country-region of
+          Circassia in the North Caucasus.
         </p>
 
-        <a class="cta-button" href="/about">Read more</a>
-      </section>
-    </section>
+        <p>
+          As a consequence of the Circassian genocide perpetrated by the Russian
+          Empire in the 19th century during the Russo-Circassian War, most
+          Circassians were exiled from their homeland in Circassia to modern-day
+          Turkey and the rest of the Middle East, where most of them are today.
+        </p>
 
-    <section class="bg-primary-green text-paragraph-light py-5">
-      <section class="section">
-        <h2 class="section-heading">Circassian History</h2>
+        <p>
+          In the early 1990s, the Unrepresented Nations and Peoples Organization
+          estimated that there are as many as 3.7 million Circassians in
+          diaspora in over 50 countries.
+        </p>
+      </div>
 
-        <div class="section-paragraph my-4">
-          <p>
-            Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
-            Адыгэхэр, romanized: Adygekher), are an indigenous Northwest
-            Caucasian ethnic group and nation native to the historical
-            country-region of Circassia in the North Caucasus.
-          </p>
+      <a class="cta-button" href="/history">Learn more</a>
+    </Section>
 
-          <p>
-            As a consequence of the Circassian genocide perpetrated by the
-            Russian Empire in the 19th century during the Russo-Circassian War,
-            most Circassians were exiled from their homeland in Circassia to
-            modern-day Turkey and the rest of the Middle East, where most of
-            them are today.
-          </p>
-
-          <p>
-            In the early 1990s, the Unrepresented Nations and Peoples
-            Organization estimated that there are as many as 3.7 million
-            Circassians in diaspora in over 50 countries.
-          </p>
-        </div>
-
-        <a class="cta-button" href="/history">Learn more</a>
-      </section>
-    </section>
-
-    <section class="section flex flex-col gap-4">
+    <Section innerSectionClass="flex flex-col gap-4">
       <h2 class="section-heading">Connect With Us</h2>
 
       <div class="text-paragraph-dark flex gap-4 flex-col">
         <p>
           We are located at
-          <a
+          {
+            /*
+            The "-mr-1" class below only exists because Prettier's formatting forces
+            an empty space between the CBA's address and punctuation mark.
+
+            This is a little hack to force less spacing, I wish I didn't have to do it >:(
+          */
+          }
+          <NewTabLink
             href="https://maps.google.com?q=Circassian Benevolent Association Wayne NJ"
-            target="_blank"
-            rel="noreferrer noopener"
-            class="text-href-color"
+            class="text-href-color -mr-1"
           >
             383 Oldham Road, Wayne, NJ 07470
-          </a>{'.'}
+          </NewTabLink>.
         </p>
 
         <p>
@@ -155,6 +156,6 @@ import { Carousel } from '../components/Carousel';
           </NewTabLink>
         </div>
       </div>
-    </section>
+    </Section>
   </main>
 </Layout>
