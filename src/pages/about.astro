@@ -2,6 +2,7 @@
 import cn from 'classnames';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
+import HeroCoverImage from '../components/HeroCoverImage.astro';
 import Flag from '../components/svgs/Flag.astro';
 import People from '../components/svgs/People.astro';
 import Book from '../components/svgs/Book.astro';
@@ -56,29 +57,20 @@ for (const member of boardMembers.reverse()) {
     teamMap.set(member.team, [member]);
   }
 }
+
+const subtitle = `“…study and foster all matters pertaining to the welfare of the
+            Circassians in America… and to strengthen the cooperative ties among
+            the Circassians wherever they may be to preserve and nurture the
+            Circassian heritage.”`;
 ---
 
 <Layout title="About">
   <main>
-    <div
-      class="flex items-center relative w-full h-screen bg-cover bg-center"
-      style="background-image: url('/cba-photo.jpeg');"
-    >
-      <div
-        class="flex items-center bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"
-      >
-        <div class="text-center max-w-[80%] md:max-w-[40%] mx-auto">
-          <h1 class="hero-heading pb-4">Our Mission</h1>
-
-          <p class="hero-paragraph">
-            “…study and foster all matters pertaining to the welfare of the
-            Circassians in America… and to strengthen the cooperative ties among
-            the Circassians wherever they may be to preserve and nurture the
-            Circassian heritage.”
-          </p>
-        </div>
-      </div>
-    </div>
+    <HeroCoverImage
+      title="Our Mission"
+      subtitle={subtitle}
+      backgroundImage="/cba-photo.jpeg"
+    />
 
     <Section containerClass="bg-slate-100">
       <h2 class="section-heading text-primary-header-dark">Vision</h2>

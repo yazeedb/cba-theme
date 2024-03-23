@@ -1,0 +1,30 @@
+---
+import Section from './Section.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  backgroundImage: string;
+}
+
+const { title, subtitle, backgroundImage } = Astro.props;
+---
+
+<div
+  class="flex items-center relative w-full h-screen bg-cover bg-center"
+  style={`background-image: url('${backgroundImage}');`}
+>
+  <div
+    class="flex items-center bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"
+  >
+    <Section innerSectionClass="text-center max-w-[80%] md:max-w-[50%] mx-auto">
+      <h1 class="text-3xl sm:text-4xl font-bold text-primary-header-light">
+        {title}
+      </h1>
+
+      <p class="text-base sm:text-xl text-paragraph-light italic">
+        {subtitle}
+      </p>
+    </Section>
+  </div>
+</div>
