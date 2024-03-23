@@ -1,5 +1,7 @@
 ---
 import cn from 'classnames';
+import { Image } from 'astro:assets';
+import CbaLogo from '../assets/cba-logo.png';
 
 const links = [
   { text: 'Home', href: '/' },
@@ -27,11 +29,11 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
     </button>
 
     <a href="/" class="mx-auto">
-      <img
+      <Image
         id="top-nav-mobile-logo"
-        src="/cba-logo.png"
+        src={CbaLogo}
         alt="CBA Logo"
-        class="h-14"
+        class="h-14 w-14"
       />
     </a>
   </div>
@@ -53,9 +55,9 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
 
           {link.isDummy ? (
             <a href="/">
-              <img
+              <Image
                 id="top-nav-desktop-logo"
-                src="/cba-logo.png"
+                src={CbaLogo}
                 alt="CBA Logo"
                 class="z-10 absolute top-2 left-[42%] w-[15%]"
               />
@@ -74,11 +76,11 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
   >
     <div class="flex items-center mb-8">
       <a class="mr-auto text-3xl font-bold leading-none" href="/">
-        <img
+        <Image
           id="side-nav-logo"
-          src="/cba-logo.png"
+          src={CbaLogo}
           alt="CBA Logo"
-          class="h-14"
+          class="h-14 w-14"
         />
       </a>
 
