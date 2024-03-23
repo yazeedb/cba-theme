@@ -10,7 +10,7 @@ const { containerClass, innerSectionClass } = Astro.props;
 ---
 
 <section class={cn(containerClass)}>
-  <section class={cn('section', innerSectionClass)}>
+  <section class={cn('max-w-7xl m-auto py-7 px-4', innerSectionClass)}>
     <slot />
   </section>
 </section>
