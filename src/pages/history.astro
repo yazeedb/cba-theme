@@ -1,4 +1,5 @@
 ---
+import cn from 'classnames';
 import { Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
@@ -6,9 +7,13 @@ import HeroCoverImage from '../components/HeroCoverImage.astro';
 import CircassianWarrior from '../assets/circassian-warrior.jpeg';
 import CircassianAlphabet from '../assets/circassian-alphabet.jpeg';
 import CircassianFlag from '../assets/circassian-flag.png';
+import DiasporaMap from '../assets/diaspora-map.png';
+import { getRecommendedBooks } from '../data';
 
 const subtitle =
   "From ancient warriors to a global diaspora, the Circassians' enduring spirit transcends centuries of history and hardship.";
+
+const books = await getRecommendedBooks();
 ---
 
 <Layout title="History">
@@ -65,7 +70,7 @@ const subtitle =
       containerClass="bg-primary-green text-paragraph-light"
       innerSectionClass="flex"
     >
-      <h2 class="section-heading">Our Language</h2>
+      <h2 class="section-heading text-primary-header-light">Our Language</h2>
 
       <div class="flex flex-col lg:flex-row gap-base">
         <div class="section-paragraph section-layout">
@@ -96,9 +101,9 @@ const subtitle =
     </Section>
 
     <Section>
-      <h2 class="section-heading">Our Flag</h2>
+      <h2 class="section-heading text-primary-header-dark">Our Flag</h2>
 
-      <p class="section-paragraph">
+      <p class="section-paragraph text-paragraph-dark">
         The national flag of the Circassians, the Circassian flag consists of a
         green field charged with 12 gold stars and, in the center, three crossed
         arrows. The stars represent the 12 historical Circassian provinces: the
@@ -108,6 +113,73 @@ const subtitle =
       </p>
 
       <Picture src={CircassianFlag} alt="The Circassian Flag" />
+    </Section>
+
+    <Section containerClass="bg-primary-header-light">
+      <h2 class="section-heading text-primary-header-dark">Diaspora</h2>
+
+      <Picture src={DiasporaMap} alt="A map of the Circassian diaspora" />
+
+      <p class="section-paragraph text-paragraph-dark">
+        Much of Adyghe culture was disrupted after the conquest of their
+        homeland by Russia in 1864. The Circassian people were subjected to
+        ethnic cleansing and mass exile mainly to the Ottoman Empire, and to a
+        lesser extent Qajar Iran and the Balkans.
+      </p>
+
+      <p class="section-paragraph text-paragraph-dark">
+        This increased the number of Circassians in the region and even created
+        several entirely new Circassian communities in the states that got
+        created after the dissolution of the Ottoman Empire. However, Adyghe
+        have also lived outside the Caucasus region since the Middle Ages. They
+        were particularly well represented in Turkey and Egypt.
+      </p>
+    </Section>
+
+    <Section>
+      <h2 class="section-heading text-primary-header-dark">
+        Recommended Books
+      </h2>
+
+      <p class="section-paragraph text-paragraph-dark">
+        To deepen your understanding of Circassian history and culture, here’s a
+        curated list of books and scholarly articles. This selection aims to
+        provide a comprehensive overview from ancient times to the modern
+        diaspora.
+      </p>
+
+      <ul class="mt-6">
+        {
+          books.map((book, index) => (
+            <li
+              class={cn('flex flex-col md:flex-row gap-6', {
+                'my-14': index > 0
+              })}
+            >
+              <img
+                class="flex-none w-[300px] h-full rounded"
+                src={book.image_url}
+                alt={book.title}
+              />
+
+              <div class="flex-initial w-full">
+                <h3 class="text-primary-header-dark text-xl font-bold">
+                  {book.title}
+                </h3>
+                <h4 class="text-primary-header-dark text-lg font-bold">
+                  {book.author}
+                </h4>
+
+                {book.description.split('\r\n\r\n').map((content) => (
+                  <p class="section-paragraph text-paragraph-dark mb-4">
+                    {content}
+                  </p>
+                ))}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </Section>
   </main>
 </Layout>

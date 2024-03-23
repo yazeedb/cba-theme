@@ -1,7 +1,7 @@
 export interface Page {
   id: string;
   date: string;
-  sllug: string;
+  slug: string;
   title: { rendered: string };
   content: { rendered: string };
   excerpt: { rendered: string };
@@ -25,4 +25,11 @@ export interface BoardMember {
   last_name: string;
   position: string;
   team: string;
+}
+
+export interface RecommendedBook {
+  image_url: string;
+  title: string;
+  author: string;
+  description: string;
 }
