@@ -9,7 +9,9 @@ const links = [
   { text: 'Events', href: '/events' }
 ];
 
-const currentUrl = Astro.url.pathname;
+const parsePathname = (pathname: string) => pathname.replace(/\//g, '');
+const pathnamesAreEqual = (p1: string, p2: string) =>
+  parsePathname(p1) === parsePathname(p2);
 ---
 
 <nav class="relative px-5 py-3 md:p-0 bg-primary-green">
@@ -20,7 +22,6 @@ const currentUrl = Astro.url.pathname;
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>Mobile menu</title>
         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
       </svg>
     </button>
@@ -28,7 +29,7 @@ const currentUrl = Astro.url.pathname;
     <a href="/" class="mx-auto">
       <img
         id="top-nav-mobile-logo"
-        src="cba-logo.png"
+        src="/cba-logo.png"
         alt="CBA Logo"
         class="h-14"
       />
@@ -42,7 +43,10 @@ const currentUrl = Astro.url.pathname;
       links.map((link) => (
         <li
           class={cn({
-            'text-cta-color font-bold': currentUrl === link.href
+            'text-cta-color font-bold': pathnamesAreEqual(
+              link.href,
+              Astro.url.pathname
+            )
           })}
         >
           <a href={link.href}>{link.text}</a>
@@ -51,7 +55,7 @@ const currentUrl = Astro.url.pathname;
             <a href="/">
               <img
                 id="top-nav-desktop-logo"
-                src="cba-logo.png"
+                src="/cba-logo.png"
                 alt="CBA Logo"
                 class="z-10 absolute top-2 left-[42%] w-[15%]"
               />
@@ -72,7 +76,7 @@ const currentUrl = Astro.url.pathname;
       <a class="mr-auto text-3xl font-bold leading-none" href="/">
         <img
           id="side-nav-logo"
-          src="cba-logo.png"
+          src="/cba-logo.png"
           alt="CBA Logo"
           class="h-14"
         />
@@ -104,7 +108,10 @@ const currentUrl = Astro.url.pathname;
                 <a
                   href={link.href}
                   class={cn('block p-4 text-sm', {
-                    'text-cta-color font-bold': currentUrl === link.href
+                    'text-cta-color font-bold': pathnamesAreEqual(
+                      link.href,
+                      Astro.url.pathname
+                    )
                   })}
                 >
                   {link.text}
