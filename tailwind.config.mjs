@@ -10,7 +10,8 @@ export default {
         'primary-header-light': '#F1F5F9',
         'paragraph-light': '#E5E7EB',
         'paragraph-dark': '#475569',
-        'primary-green': '#072B15'
+        'primary-green': '#072B15',
+        'href-color': '#0284C7'
       },
       fontFamily: {
         display: 'Montserrat, Arial, Helvetica, sans-serif'

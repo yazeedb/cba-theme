@@ -1,11 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
 import Flag from '../components/svgs/Flag.astro';
 import People from '../components/svgs/People.astro';
 import Book from '../components/svgs/Book.astro';
 import Heart from '../components/svgs/Heart.astro';
-import Footer from '../components/Footer.astro';
 
 const tenants = [
   {
@@ -60,8 +58,6 @@ for (const member of boardMembers.reverse()) {
 
 <Layout title="About">
   <main>
-    <Nav />
-
     <div
       class="flex items-center relative w-full h-screen bg-cover bg-center"
       style="background-image: url('/cba-photo.jpeg');"
@@ -83,7 +79,7 @@ for (const member of boardMembers.reverse()) {
     </div>
 
     <section class="bg-slate-100 text-paragraph-light py-5 sm:px-10">
-      <section class="max-w-[1240px] m-auto py-5 px-10">
+      <section class="section px-10">
         <h2 class="section-heading text-primary-header-dark">Vision</h2>
 
         <p class="section-paragraph my-4 text-paragraph-dark md:max-w-[66%]">
@@ -97,7 +93,7 @@ for (const member of boardMembers.reverse()) {
     </section>
 
     <section class="text-paragraph-light py-5 px-10">
-      <section class="max-w-[1240px] m-auto py-5 sm:px-10">
+      <section class="section sm:px-10">
         <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
 
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -121,7 +117,7 @@ for (const member of boardMembers.reverse()) {
     </section>
 
     <section class="bg-slate-100 text-paragraph-light py-5 px-10">
-      <section class="max-w-[1240px] m-auto py-5 px-10">
+      <section class="section px-10">
         <h2 class="section-heading text-primary-header-dark">Organization</h2>
 
         {
@@ -146,8 +142,6 @@ for (const member of boardMembers.reverse()) {
       </section>
     </section>
   </main>
-
-  <Footer />
 </Layout>
 
 <style></style>

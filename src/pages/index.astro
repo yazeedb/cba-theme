@@ -1,16 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
 import EventCard from '../components/EventCard.astro';
-import Footer from '../components/Footer.astro';
+import NewTabLink from '../components/NewTabLink.astro';
+import YouTube from '../components/svgs/YouTube.astro';
+import Facebook from '../components/svgs/Facebook.astro';
+import Instagram from '../components/svgs/Instagram.astro';
+import { Carousel } from '../components/Carousel';
 ---
 
 <Layout title="Home">
   <main>
-    <Nav />
+    <Carousel client:only="react" />
 
-    <section class="max-w-[1240px] m-auto py-5 px-10">
-      <section class="flex pb-4 justify-between">
+    <section class="section">
+      <section class="flex pb-4 justify-between items-center">
         <h2 class="text-primary-header-dark section-heading">Our Events</h2>
 
         <a
@@ -64,41 +67,11 @@ import Footer from '../components/Footer.astro';
           price="Free"
           date="July 5th at 12:00 PM"
         />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
       </section>
     </section>
 
-    <section class="bg-primary-green text-paragraph-light py-5 px-10">
-      <section class="max-w-[1240px] m-auto py-5 px-10">
+    <section class="bg-primary-green text-paragraph-light py-5">
+      <section class="section">
         <h2 class="section-heading">Learn About the CBA</h2>
 
         <p class="section-paragraph my-4">
@@ -114,8 +87,8 @@ import Footer from '../components/Footer.astro';
       </section>
     </section>
 
-    <section class="bg-primary-green text-paragraph-light py-5 px-10">
-      <section class="max-w-[1240px] m-auto py-5 px-10">
+    <section class="bg-primary-green text-paragraph-light py-5">
+      <section class="section">
         <h2 class="section-heading">Circassian History</h2>
 
         <div class="section-paragraph my-4">
@@ -144,9 +117,44 @@ import Footer from '../components/Footer.astro';
         <a class="cta-button" href="/history">Learn more</a>
       </section>
     </section>
+
+    <section class="section flex flex-col gap-4">
+      <h2 class="section-heading">Connect With Us</h2>
+
+      <div class="text-paragraph-dark flex gap-4 flex-col">
+        <p>
+          We are located at
+          <a
+            href="https://maps.google.com?q=Circassian Benevolent Association Wayne NJ"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="text-href-color"
+          >
+            383 Oldham Road, Wayne, NJ 07470
+          </a>{'.'}
+        </p>
+
+        <p>
+          Our main office number is
+          <a href="tel:+9737908979" class="text-href-color">(973) 790-8979</a>.
+        </p>
+
+        <p>Check out our social media pages!</p>
+
+        <div class="flex gap-4">
+          <NewTabLink href="https://www.youtube.com/@cba_america">
+            <YouTube class="w-16 h-auto" />
+          </NewTabLink>
+
+          <NewTabLink href="https://www.facebook.com/CBA.America/">
+            <Facebook class="w-16 h-auto" />
+          </NewTabLink>
+
+          <NewTabLink href="https://www.instagram.com/cba_america/?hl=en">
+            <Instagram class="w-16 h-auto" />
+          </NewTabLink>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <Footer />
 </Layout>
-
-<style></style>
