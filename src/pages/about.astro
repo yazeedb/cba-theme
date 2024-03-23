@@ -1,4 +1,5 @@
 ---
+import cn from 'classnames';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import Flag from '../components/svgs/Flag.astro';
@@ -82,7 +83,7 @@ for (const member of boardMembers.reverse()) {
     <Section containerClass="bg-slate-100">
       <h2 class="section-heading text-primary-header-dark">Vision</h2>
 
-      <p class="section-paragraph my-4 text-paragraph-dark md:max-w-[66%]">
+      <p class="section-paragraph text-paragraph-dark md:max-w-[66%]">
         We envision a world where Circassian culture is widely recognized and
         celebrated, and where our community members are empowered to thrive in a
         multicultural society. Our aim is to build bridges of understanding and
@@ -92,7 +93,7 @@ for (const member of boardMembers.reverse()) {
     </Section>
 
     <Section containerClass="text-paragraph-light">
-      <h2 class="section-heading text-primary-header-dark pb-4">Tenants</h2>
+      <h2 class="section-heading text-primary-header-dark">Tenants</h2>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
@@ -117,23 +118,25 @@ for (const member of boardMembers.reverse()) {
       <h2 class="section-heading text-primary-header-dark">Organization</h2>
 
       {
-        Object.entries(Object.fromEntries(teamMap)).map(([team, members]) => (
-          <section class="py-8">
-            <h3 class="text-xl font-bold text-slate-800 mb-3">{team}</h3>
+        Object.entries(Object.fromEntries(teamMap)).map(
+          ([team, members], index) => (
+            <section class={cn('ml-3', { 'py-6': index > 0 })}>
+              <h3 class="section-heading-minor text-slate-800 mb-3">{team}</h3>
 
-            <ul class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
-              {members.map((member) => (
-                <li>
-                  <span class="text-slate-700 block font-bold">
-                    {member.first_name} {member.last_name}
-                  </span>
+              <ul class="grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10 ml-3">
+                {members.map((member) => (
+                  <li>
+                    <span class="text-slate-700 block font-bold">
+                      {member.first_name} {member.last_name}
+                    </span>
 
-                  <span class="text-slate-600">{member.position}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
+                    <span class="text-slate-600">{member.position}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        )
       }
     </Section>
   </main>

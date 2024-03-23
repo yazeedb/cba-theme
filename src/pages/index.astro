@@ -14,7 +14,7 @@ import { Carousel } from '../components/Carousel';
     <Carousel client:only="react" />
 
     <Section>
-      <section class="flex pb-4 justify-between items-center">
+      <section class="flex justify-between items-center">
         <h2 class="text-primary-header-dark section-heading">Our Events</h2>
 
         <a
@@ -71,10 +71,10 @@ import { Carousel } from '../components/Carousel';
       </section>
     </Section>
 
-    <Section containerClass="bg-primary-green text-paragraph-light py-5">
+    <Section containerClass="bg-primary-green text-paragraph-light">
       <h2 class="section-heading">Learn About the CBA</h2>
 
-      <p class="section-paragraph my-4">
+      <p class="section-paragraph">
         The Circassian Benevolent Association, nestled in the quaint town of
         Wayne, New Jersey, stands as a beacon of cultural heritage and community
         spirit. Established in the late 19th century by early Circassian
@@ -82,13 +82,23 @@ import { Carousel } from '../components/Carousel';
         cultural preservation for the Circassian community in America.
       </p>
 
-      <a class="cta-button" href="/about">Read more</a>
+      <a class="cta-button self-start" href="/about">Read more</a>
     </Section>
 
-    <Section containerClass="bg-primary-green text-paragraph-light py-5">
+    <Section>
+      <h2 class="section-heading">IG Feed Placeholder</h2>
+
+      <p class="section-paragraph">
+        The Instagram feed will go here. For now this is sample content to get a
+        sense of what the final layout will look like on mobile, desktop, and
+        other screen sizes.
+      </p>
+    </Section>
+
+    <Section containerClass="bg-primary-green text-paragraph-light">
       <h2 class="section-heading">Circassian History</h2>
 
-      <div class="section-paragraph my-4">
+      <div class="section-paragraph flex flex-col gap-8">
         <p>
           Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
           Адыгэхэр, romanized: Adygekher), are an indigenous Northwest Caucasian
@@ -108,9 +118,9 @@ import { Carousel } from '../components/Carousel';
           estimated that there are as many as 3.7 million Circassians in
           diaspora in over 50 countries.
         </p>
-      </div>
 
-      <a class="cta-button" href="/history">Learn more</a>
+        <a class="cta-button self-start" href="/history">Learn more</a>
+      </div>
     </Section>
 
     <Section innerSectionClass="flex flex-col gap-4">
