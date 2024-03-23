@@ -18,7 +18,7 @@ const subtitle =
     <Section containerClass="bg-slate-100" innerSectionClass="flex flex-row">
       <h2 class="section-heading text-primary-header-dark">Introduction</h2>
 
-      <div class="flex flex-col sm:flex-row gap-base">
+      <div class="flex flex-col lg:flex-row gap-base">
         <div class="text-paragraph-dark section-paragraph section-layout">
           <p>
             Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
@@ -40,10 +40,21 @@ const subtitle =
             Organization estimated that there are as many as 3.7 million
             Circassians in diaspora in over 50 countries.
           </p>
+
+          <p>
+            Circassians have a rich cultural heritage that includes unique
+            traditions, music, dance, and attire. Their traditional music
+            involves the use of instruments such as the shichepshin (a stringed
+            instrument), the pshina (a flute), and the Circassian accordion. The
+            traditional Circassian dance is characterized by its elegance and
+            the striking attire worn by the dancers. Men wear coats with
+            cartridge belts and woolen hats, while women dress in ornate, long
+            dresses with tight sleeves.
+          </p>
         </div>
 
         <img
-          class="basis-1/2 w-full"
+          class="w-full md:w-[50%]"
           src="circassian-warrior.jpeg"
           alt="A Circassian warrior"
         />
@@ -56,24 +67,51 @@ const subtitle =
     >
       <h2 class="section-heading">Our Language</h2>
 
-      <p class="section-paragraph">
-        Circassians mainly speak the Circassian languages, two mutually
-        intelligible languages of the Northwest Caucasian language family,
-        namely Adyghe (West Circassian) and Kabardian (East Adyghe). Adyghe is
-        based on Temirgoy (Chemirgoy) dialect, while Kabardian is based on the
-        dialect of the same name.
-      </p>
+      <div class="flex flex-col lg:flex-row gap-base">
+        <div class="section-paragraph section-layout">
+          <p>
+            Circassians mainly speak the Circassian languages, two mutually
+            intelligible languages of the Northwest Caucasian language family,
+            namely Adyghe (West Circassian) and Kabardian (East Adyghe). Adyghe
+            is based on Temirgoy (Chemirgoy) dialect, while Kabardian is based
+            on the dialect of the same name.
+          </p>
+
+          <p>
+            Circassians also speak Russian, Turkish, English, Arabic, and Hebrew
+            in large numbers, having been exiled by Russia to lands of the
+            Ottoman Empire, where the majority of them live today, and some to
+            neighboring Persia, to which they came primarily through mass
+            deportations by the Safavids and Qajars or, to a lesser extent, as
+            muhajirs in the 19th century.
+          </p>
+        </div>
+
+        <img
+          class="w-full md:w-[50%]"
+          src="circassian-alphabet.jpeg"
+          alt="The Circassian Alphabet"
+        />
+      </div>
+    </Section>
+
+    <Section>
+      <h2 class="section-heading">Our Flag</h2>
 
       <p class="section-paragraph">
-        Circassians also speak Russian, Turkish, English, Arabic, and Hebrew in
-        large numbers, having been exiled by Russia to lands of the Ottoman
-        Empire, where the majority of them live today, and some to neighboring
-        Persia, to which they came primarily through mass deportations by the
-        Safavids and Qajars or, to a lesser extent, as muhajirs in the 19th
-        century.
+        The national flag of the Circassians, the Circassian flag consists of a
+        green field charged with 12 gold stars and, in the center, three crossed
+        arrows. The stars represent the 12 historical Circassian provinces: the
+        Abzakh, the Besleney, the Bzhedugh, the Hatuqway, the Kabardians, the
+        Mamkhegh, the Natukhaj, the Shapsugh, the Chemirgoy, the Ubykh, the
+        Yegeruqway and the Zhaney.
       </p>
 
-      <img src="circassian-alphabet.jpeg" alt="The Circassian Alphabet" />
+      <img
+        class="w-full md:w-2/3"
+        src="circassian-flag.png"
+        alt="The Circassian Flag"
+      />
     </Section>
   </main>
 </Layout>
