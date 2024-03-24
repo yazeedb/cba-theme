@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { EventCalendar } from '../components/EventCalendar';
 ---
 
 <Layout title="Events">
-  <main></main>
+  <main>
+    <EventCalendar client:only="react" />
+  </main>
 </Layout>
-
-<style></style>
