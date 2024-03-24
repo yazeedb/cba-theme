@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.2.22",
     "astro": "^4.5.4",
     "classnames": "^2.5.1",
+    "date-fns": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "swiper": "^11.0.7",
