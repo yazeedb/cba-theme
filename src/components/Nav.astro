@@ -48,12 +48,9 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
   parsePathname(p1) === parsePathname(p2);
 ---
 
-<nav
-  id="top-nav"
-  class="hidden md:block relative px-5 py-3 md:p-0 bg-primary-green"
->
+<nav id="top-nav" class="relative bg-primary-green">
   <ul
-    class="hidden text-primary-header-light md:flex justify-between max-w-[600px] m-auto p-7 relative"
+    class="text-primary-header-light h-12 md:h-auto md:flex justify-between max-w-[600px] m-auto md:p-7 relative"
   >
     {
       links.map((link) => (
@@ -65,15 +62,17 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
             )
           })}
         >
-          <a href={link.href}>{link.text}</a>
+          <a href={link.href} class="hidden md:block">
+            {link.text}
+          </a>
 
           {link.isDummy ? (
-            <a href="/">
+            <a href="/" class="flex items-center justify-center w-full">
               <Image
                 id="top-nav-desktop-logo"
                 src={CbaLogo}
                 alt="CBA Logo"
-                class="z-10 absolute top-2 left-[42%] w-[15%]"
+                class="z-10 relative top-1 w-20 md:absolute md:top-2 md:left-[42%] md:w-[15%]"
               />
             </a>
           ) : null}
