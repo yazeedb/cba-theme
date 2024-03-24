@@ -100,7 +100,7 @@ const pathnamesAreEqual = (p1: string, p2: string) =>
                 class={cn(
                   'text-[10px] xs:text-xs sm:text-sm flex flex-col items-center',
                   {
-                    'text-cta-color': pathnamesAreEqual(
+                    'text-cta-color font-bold': pathnamesAreEqual(
                       link.href,
                       Astro.url.pathname
                     )
