@@ -36,8 +36,20 @@ const { title } = Astro.props;
 <style is:global>
   @tailwind utilities;
 
+  :root {
+    --mobile-nav-height: theme(height.16);
+  }
+
   html {
     font-family: montserrat, system-ui, sans-serif;
+  }
+
+  body {
+    margin-bottom: var(--mobile-nav-height);
+  }
+
+  #mobile-nav-bottom {
+    height: var(--mobile-nav-height);
   }
 
   @layer utilities {
@@ -67,6 +79,10 @@ const { title } = Astro.props;
 
     .section-layout {
       @apply gap-base flex flex-col;
+    }
+
+    .pb-safe {
+      padding-bottom: env(safe-area-inset-bottom);
     }
   }
 </style>
