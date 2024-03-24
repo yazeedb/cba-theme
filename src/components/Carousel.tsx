@@ -18,7 +18,10 @@ export const Carousel = () => {
       className="mySwiper w-full h-auto mx-auto"
     >
       {Array.from({ length: 5 }, (_, i) => (
-        <SwiperSlide className="text-center flex justify-center items-center">
+        <SwiperSlide
+          key={i}
+          className="text-center flex justify-center items-center"
+        >
           <div className="aspect-w-16 aspect-h-9 w-full h-auto">
             <img
               className="w-full h-full object-cover"
