@@ -163,7 +163,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
             {eventsForDay.map((e) => (
               <div
                 key={e.id}
-                className="text-xs p-1 bg-green-200 whitespace-nowrap overflow-hidden"
+                className="w-full text-xs py-1 px-3 bg-green-200 whitespace-nowrap overflow-hidden"
               >
                 {e.title}
               </div>

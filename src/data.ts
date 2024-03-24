@@ -180,7 +180,7 @@ export const getEvents = async (): Promise<CalendarEvent[]> => {
       title: 'Eco-Friendly Gadgets Expo',
       description:
         'Explore the latest in sustainable technology and eco-friendly gadgets. This expo features products that help reduce your carbon footprint while embracing the latest tech.',
-      date: '2024-03-02',
+      date: '2024-03-27',
       location: 'Newark, NJ',
       price: 'Free'
     },
