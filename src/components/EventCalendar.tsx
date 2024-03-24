@@ -124,7 +124,7 @@ export const EventCalendar = () => {
         <div>Sat</div>
       </div>
 
-      <div className="grid grid-cols-7">
+      <div className="grid grid-cols-7 border-l border-t border-slate-200">
         {paddingDays.map((day) => (
           <Day
             key={day}
