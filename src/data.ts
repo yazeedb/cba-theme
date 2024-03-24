@@ -1,4 +1,4 @@
-import type { BoardMember } from './interfaces';
+import type { BoardMember, CalendarEvent } from './interfaces';
 
 export const getRecommendedBooks = async () => {
   return books.map((book) => ({
@@ -160,6 +160,56 @@ export const getBoardMembers = async (): Promise<BoardMember[]> => {
       last_name: 'Cinaz',
       position: 'President 2023-2024',
       team: 'Executive Board'
+    }
+  ];
+};
+
+export const getEvents = async (): Promise<CalendarEvent[]> => {
+  return [
+    {
+      id: ' 1',
+      title: 'Spring Tech Innovation Summit',
+      description:
+        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
+      date: '2024-03-27',
+      location: 'Jersey City, NJ',
+      price: '$299'
+    },
+    {
+      id: '2',
+      title: 'Eco-Friendly Gadgets Expo',
+      description:
+        'Explore the latest in sustainable technology and eco-friendly gadgets. This expo features products that help reduce your carbon footprint while embracing the latest tech.',
+      date: '2024-03-02',
+      location: 'Newark, NJ',
+      price: 'Free'
+    },
+    {
+      id: '3',
+      title: 'Front-End Web Development Workshop',
+      description:
+        'A hands-on workshop focused on modern front-end development practices, including React, Vue, and Angular frameworks. Ideal for developers looking to upgrade their skills.',
+      date: '2024-03-08',
+      location: 'Hoboken, NJ',
+      price: '$150'
+    },
+    {
+      id: '4',
+      title: 'Community Clean-Up Day',
+      description:
+        'Join us for a day dedicated to cleaning up our local parks and beaches. A great opportunity to give back to the community while enjoying the outdoors.',
+      date: '2024-03-15',
+      location: 'Jersey Shore, NJ',
+      price: 'Free'
+    },
+    {
+      id: '5',
+      title: 'Global Virtual Reality Conference',
+      description:
+        'A virtual event bringing together VR enthusiasts, game developers, and tech innovators from around the world to discuss the future of virtual reality.',
+      date: '2024-04-22',
+      location: 'Online',
+      price: '$50'
     }
   ];
 };

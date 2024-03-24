@@ -33,3 +33,12 @@ export interface RecommendedBook {
   author: string;
   description: string;
 }
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  location: string;
+  price: string;
+}

@@ -2,12 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import { EventCalendar } from '../components/EventCalendar';
+import { getEvents } from '../data';
+
+const events = await getEvents();
 ---
 
 <Layout title="Events">
   <main>
     <Section containerClass="mt-3 sm:mt-0">
-      <EventCalendar client:only="react" />
+      <EventCalendar events={events} client:only="react" />
     </Section>
   </main>
 </Layout>

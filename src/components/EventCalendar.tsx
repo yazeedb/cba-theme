@@ -1,8 +1,19 @@
 import cn from 'classnames';
-import { addMonths, getDaysInMonth, isToday, startOfMonth } from 'date-fns';
+import {
+  addMonths,
+  getDaysInMonth,
+  isSameDay,
+  isToday,
+  startOfMonth
+} from 'date-fns';
 import { useState, type ButtonHTMLAttributes } from 'react';
+import type { CalendarEvent } from '../interfaces';
 
-export const EventCalendar = () => {
+interface EventCalendarProps {
+  events: CalendarEvent[];
+}
+
+export const EventCalendar = ({ events }: EventCalendarProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   function goToToday() {
@@ -24,10 +35,15 @@ export const EventCalendar = () => {
       i + 1
     );
 
+    const eventsForDay = events.filter((event) =>
+      isSameDay(new Date(event.date), date)
+    );
+
     return {
       day: i + 1,
       isToday: isToday(date),
-      date
+      date,
+      eventsForDay
     };
   });
 
@@ -37,7 +53,7 @@ export const EventCalendar = () => {
     <div className="lg:flex lg:h-full lg:flex-col">
       <header className="flex items-center justify-between lg:flex-none pb-4">
         <h1 className="text-base font-semibold leading-6 text-gray-900">
-          <time dateTime="2022-01">
+          <time dateTime={currentDate.toDateString()}>
             {currentDate.toLocaleDateString('default', {
               month: 'long',
               year: 'numeric'
@@ -132,16 +148,26 @@ export const EventCalendar = () => {
           />
         ))}
 
-        {days.map(({ date, day, isToday }) => (
+        {days.map(({ date, day, isToday, eventsForDay }) => (
           <Day
             key={day}
-            className={cn('px-3 py-2 text-gray-900 self-start', {
+            className={cn('text-gray-900 self-start flex flex-col', {
               'bg-slate-200': isToday,
               'bg-white hover:bg-gray-50': !isToday
             })}
           >
-            <time dateTime={date.toDateString()}>{day}</time>
-            <span className="sr-only">0 events</span>
+            <time className="px-3 py-2" dateTime={date.toDateString()}>
+              {day}
+            </time>
+
+            {eventsForDay.map((e) => (
+              <div
+                key={e.id}
+                className="text-xs p-1 bg-green-200 whitespace-nowrap overflow-hidden"
+              >
+                {e.title}
+              </div>
+            ))}
           </Day>
         ))}
       </div>
