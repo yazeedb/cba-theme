@@ -160,14 +160,16 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
               {day}
             </time>
 
-            {eventsForDay.map((e) => (
-              <div
-                key={e.id}
-                className="w-full text-xs py-1 px-3 bg-green-200 whitespace-nowrap overflow-hidden"
-              >
-                {e.title}
-              </div>
-            ))}
+            <div id="events" className="flex flex-col w-full">
+              {eventsForDay.map((e) => (
+                <div
+                  key={e.id}
+                  className="w-full text-xs py-1 px-3 bg-green-200 whitespace-nowrap overflow-hidden"
+                >
+                  {e.title}
+                </div>
+              ))}
+            </div>
           </Day>
         ))}
       </div>
@@ -183,7 +185,7 @@ const Day = ({ children, className, ...rest }: DayProps) => {
       {...rest}
       type="button"
       className={cn(
-        'flex items-start h-14 md:h-28 focus:z-10 border-r border-b border-slate-200 text-xs font-medium',
+        'flex items-start h-28 text-left border-r border-b border-slate-200 text-xs font-medium',
         className
       )}
     >
