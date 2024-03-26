@@ -175,7 +175,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
                 {day}
               </time>
 
-              <div id="events" className="flex flex-col w-full">
+              <div id="events" className="flex flex-col w-full gap-1">
                 {eventsForDay.map((e) => (
                   <button
                     key={e.id}
@@ -201,7 +201,7 @@ const Day = ({ children, className, ...rest }: DayProps) => {
     <div
       {...rest}
       className={cn(
-        'flex items-start h-28 text-left border-r border-b border-slate-200 text-xs font-medium',
+        'flex items-start h-28 text-left border-r border-b border-slate-200 text-xs font-medium overflow-hidden',
         className
       )}
     >

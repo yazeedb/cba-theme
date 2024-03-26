@@ -176,6 +176,33 @@ export const getEvents = async (): Promise<CalendarEvent[]> => {
       price: '$299'
     },
     {
+      id: ' 1',
+      title: 'Spring Tech Innovation Summit',
+      description:
+        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
+      date: '2024-03-27',
+      location: 'Jersey City, NJ',
+      price: '$299'
+    },
+    {
+      id: ' 1',
+      title: 'Spring Tech Innovation Summit',
+      description:
+        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
+      date: '2024-03-27',
+      location: 'Jersey City, NJ',
+      price: '$299'
+    },
+    {
+      id: ' 1',
+      title: 'Spring Tech Innovation Summit',
+      description:
+        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
+      date: '2024-03-27',
+      location: 'Jersey City, NJ',
+      price: '$299'
+    },
+    {
       id: '2',
       title: 'Eco-Friendly Gadgets Expo',
       description:
