@@ -51,6 +51,8 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
 
   const paddingDays = Array.from({ length: firstDayOfMonth }, (_, i) => i);
 
+  const maxVisibleEventsPerDay = 2;
+
   return (
     <>
       <Modal
@@ -166,7 +168,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
               </time>
 
               <div id="events" className="flex flex-col w-full gap-1">
-                {eventsForDay.map((e) => (
+                {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
                   <button
                     key={e.id}
                     className="w-full text-xs py-1 px-3 bg-green-200 whitespace-nowrap overflow-hidden"
@@ -176,6 +178,25 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
                   </button>
                 ))}
               </div>
+
+              {eventsForDay.length <= maxVisibleEventsPerDay ? null : (
+                <button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    />
+                  </svg>
+                </button>
+              )}
             </Day>
           ))}
         </div>
