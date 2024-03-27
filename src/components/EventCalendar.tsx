@@ -135,13 +135,6 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
                 </svg>
               </button>
             </div>
-
-            <button
-              type="button"
-              className="cta-button-style ml-2 rounded-full"
-            >
-              +
-            </button>
           </div>
         </header>
 
