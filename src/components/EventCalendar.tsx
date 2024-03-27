@@ -157,10 +157,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
 
         <div className="grid grid-cols-7 border-l border-t border-slate-200">
           {paddingDays.map((day) => (
-            <Day
-              key={day}
-              className="bg-gray-50  text-gray-500 hover:bg-gray-100"
-            />
+            <Day key={day} className="bg-gray-50 hover:bg-gray-100" />
           ))}
 
           {days.map(({ date, day, isToday, eventsForDay }) => (
