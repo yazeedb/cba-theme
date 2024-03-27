@@ -167,7 +167,7 @@ export const getBoardMembers = async (): Promise<BoardMember[]> => {
 export const getEvents = async (): Promise<CalendarEvent[]> => {
   return [
     {
-      id: ' 1',
+      id: ' 12',
       title: 'Spring Tech Innovation Summit',
       description:
         'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
@@ -176,7 +176,7 @@ export const getEvents = async (): Promise<CalendarEvent[]> => {
       price: '$299'
     },
     {
-      id: ' 1',
+      id: ' 13',
       title: 'Spring Tech Innovation Summit',
       description:
         'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
@@ -185,7 +185,7 @@ export const getEvents = async (): Promise<CalendarEvent[]> => {
       price: '$299'
     },
     {
-      id: ' 1',
+      id: ' 11',
       title: 'Spring Tech Innovation Summit',
       description:
         'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
@@ -194,7 +194,7 @@ export const getEvents = async (): Promise<CalendarEvent[]> => {
       price: '$299'
     },
     {
-      id: ' 1',
+      id: ' 14',
       title: 'Spring Tech Innovation Summit',
       description:
         'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
