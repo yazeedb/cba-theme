@@ -111,8 +111,11 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
         </ul>
       </Modal>
 
-      <div className="lg:flex lg:h-full lg:flex-col">
-        <header className="flex items-center justify-between lg:flex-none pb-4">
+      <div id="calendar" className="lg:flex lg:h-full lg:flex-col">
+        <header
+          id="calendar-header"
+          className="flex items-center justify-between lg:flex-none pb-4 px-4"
+        >
           <h1 className="text-base font-semibold leading-6 text-gray-900">
             <time dateTime={currentDate.toDateString()}>
               {currentDate.toLocaleDateString('default', {
@@ -187,17 +190,23 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
           </div>
         </header>
 
-        <div className="grid grid-cols-7">
-          <div>Sun</div>
-          <div>Mon</div>
-          <div>Tue</div>
-          <div>Wed</div>
-          <div>Thu</div>
-          <div>Fri</div>
-          <div>Sat</div>
+        <div
+          id="days-of-the-week"
+          className="grid grid-cols-7 text-center text-xs sm:text-base"
+        >
+          <div>S</div>
+          <div>M</div>
+          <div>T</div>
+          <div>W</div>
+          <div>T</div>
+          <div>F</div>
+          <div>S</div>
         </div>
 
-        <div className="grid grid-cols-7 border-l border-t border-slate-200">
+        <div
+          id="calendar-body"
+          className="grid grid-cols-7 border-l border-t border-slate-200 sm:mx-4"
+        >
           {paddingDays.map((day) => (
             <Day key={day} className="bg-gray-50" />
           ))}
