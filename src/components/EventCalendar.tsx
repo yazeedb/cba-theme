@@ -152,16 +152,19 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
 
         <div className="grid grid-cols-7 border-l border-t border-slate-200">
           {paddingDays.map((day) => (
-            <Day key={day} className="bg-gray-50 hover:bg-gray-100" />
+            <Day key={day} className="bg-gray-50" />
           ))}
 
           {days.map(({ date, day, isToday, eventsForDay }) => (
             <Day
               key={day}
-              className={cn('text-gray-900 self-start flex flex-col', {
-                'bg-slate-200': isToday,
-                'bg-white hover:bg-gray-50': !isToday
-              })}
+              className={cn(
+                'text-gray-900 self-start flex flex-col text-2xs md:text-xs',
+                {
+                  'bg-slate-200': isToday,
+                  'bg-white': !isToday
+                }
+              )}
             >
               <time className="px-3 py-2" dateTime={date.toDateString()}>
                 {day}
@@ -171,7 +174,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
                 {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
                   <button
                     key={e.id}
-                    className="w-full text-xs py-1 px-3 bg-green-200 whitespace-nowrap overflow-hidden"
+                    className="w-full py-1 px-2 bg-green-200 hover:bg-green-300 whitespace-nowrap overflow-hidden"
                     onClick={() => setIsModalOpen(true)}
                   >
                     {e.title}
@@ -180,18 +183,18 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
               </div>
 
               {eventsForDay.length <= maxVisibleEventsPerDay ? null : (
-                <button>
+                <button className="mt-auto ml-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
                     className="w-6 h-6"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
                     />
                   </svg>
