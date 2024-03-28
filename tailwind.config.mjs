@@ -21,7 +21,8 @@ export default {
         'paragraph-light': '#E5E7EB',
         'paragraph-dark': '#475569',
         'primary-green': '#072B15',
-        'href-color': '#0284C7'
+        'href-color': '#0284C7',
+        'calendar-event': '#f6bf26'
       },
       fontFamily: {
         display: 'Montserrat, Arial, Helvetica, sans-serif'

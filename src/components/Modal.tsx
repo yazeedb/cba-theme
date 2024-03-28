@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState, type ReactNode } from 'react';
+import { Fragment, useRef, type ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 interface ModalProps {
@@ -7,14 +7,14 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   confirmText: string;
-  cancelText: string;
+  // cancelText: string;
 }
 
 export const Modal = ({
   isOpen,
   onClose,
   confirmText,
-  cancelText,
+  // cancelText,
   onConfirm,
   children
 }: ModalProps) => {
@@ -54,23 +54,26 @@ export const Modal = ({
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 {children}
 
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <footer
+                  id="modal-footer"
+                  className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"
+                >
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                    className="inline-flex w-full justify-center rounded-md bg-slate-200 hover:bg-slate-100 px-3 py-2 text-sm font-semibold text-black shadow-sm sm:ml-3 sm:w-auto"
                     onClick={() => onConfirm()}
                   >
                     {confirmText}
                   </button>
-                  <button
+                  {/* <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => onClose()}
                     ref={cancelButtonRef}
                   >
                     {cancelText}
-                  </button>
-                </div>
+                  </button> */}
+                </footer>
               </Dialog.Panel>
             </Transition.Child>
           </div>

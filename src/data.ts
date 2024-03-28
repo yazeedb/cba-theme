@@ -165,80 +165,23 @@ export const getBoardMembers = async (): Promise<BoardMember[]> => {
 };
 
 export const getEvents = async (): Promise<CalendarEvent[]> => {
-  return [
-    {
-      id: ' 12',
-      title: 'Spring Tech Innovation Summit',
-      description:
-        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
-      date: '2024-03-27',
-      location: 'Jersey City, NJ',
-      price: '$299'
-    },
-    {
-      id: ' 13',
-      title: 'Spring Tech Innovation Summit',
-      description:
-        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
-      date: '2024-03-27',
-      location: 'Jersey City, NJ',
-      price: '$299'
-    },
-    {
-      id: ' 11',
-      title: 'Spring Tech Innovation Summit',
-      description:
-        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
-      date: '2024-03-27',
-      location: 'Jersey City, NJ',
-      price: '$299'
-    },
-    {
-      id: ' 14',
-      title: 'Spring Tech Innovation Summit',
-      description:
-        'A gathering of tech enthusiasts, developers, and entrepreneurs to discuss the latest in technology and innovation. Keynote speakers from leading tech companies will share insights into the future of technology.',
-      date: '2024-03-27',
-      location: 'Jersey City, NJ',
-      price: '$299'
-    },
-    {
-      id: '2',
-      title: 'Eco-Friendly Gadgets Expo',
-      description:
-        'Explore the latest in sustainable technology and eco-friendly gadgets. This expo features products that help reduce your carbon footprint while embracing the latest tech.',
-      date: '2024-03-27',
-      location: 'Newark, NJ',
-      price: 'Free'
-    },
-    {
-      id: '3',
-      title: 'Front-End Web Development Workshop',
-      description:
-        'A hands-on workshop focused on modern front-end development practices, including React, Vue, and Angular frameworks. Ideal for developers looking to upgrade their skills.',
-      date: '2024-03-08',
-      location: 'Hoboken, NJ',
-      price: '$150'
-    },
-    {
-      id: '4',
-      title: 'Community Clean-Up Day',
-      description:
-        'Join us for a day dedicated to cleaning up our local parks and beaches. A great opportunity to give back to the community while enjoying the outdoors.',
-      date: '2024-03-15',
-      location: 'Jersey Shore, NJ',
-      price: 'Free'
-    },
-    {
-      id: '5',
-      title: 'Global Virtual Reality Conference',
-      description:
-        'A virtual event bringing together VR enthusiasts, game developers, and tech innovators from around the world to discuss the future of virtual reality.',
-      date: '2024-04-22',
-      location: 'Online',
+  return Array.from({ length: 200 }, (_, index) => {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 20);
+
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + 20);
+
+    return {
+      id: index.toString(),
+      title: `Sample Event ${index + 1}`,
+      description: `This is a description for Sample Event ${index + 1}`,
+      date: getRandomDateBetween(startDate, endDate).toDateString(),
+      // date: '2024-03-27',
+      location: 'Wayne, NJ',
       price: '$50'
-    }
-  ];
+    };
+  });
 };
 
 const books = [
@@ -786,3 +729,21 @@ const books = [
     }
   }
 ];
+
+const getRandomDateBetween = (start: Date, end: Date): Date => {
+  // Step 1: Convert both dates to timestamps
+  const startTimestamp = start.getTime();
+  const endTimestamp = end.getTime();
+
+  // Ensure the start date is earlier than the end date
+  if (startTimestamp >= endTimestamp) {
+    throw new Error('The start date must be before the end date.');
+  }
+
+  // Step 2 & 3: Generate a random timestamp between start and end
+  const randomTimestamp =
+    startTimestamp + Math.random() * (endTimestamp - startTimestamp);
+
+  // Step 4 & 5: Convert the random timestamp back to a date and return
+  return new Date(randomTimestamp);
+};

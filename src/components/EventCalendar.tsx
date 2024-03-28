@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import {
   addMonths,
+  format,
   getDaysInMonth,
   isSameDay,
   isToday,
@@ -14,12 +15,20 @@ interface EventCalendarProps {
   events: CalendarEvent[];
 }
 
+interface ChosenDay {
+  date: Date | null;
+  events: CalendarEvent[];
+}
+
+const initialChosenDay: ChosenDay = { date: null, events: [] };
+
 export const EventCalendar = ({ events }: EventCalendarProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [chosenDay, setChosenDay] = useState<ChosenDay>(initialChosenDay);
 
   function goToToday() {
-    setCurrentDate(new Date()); // Resets to today's date
+    setCurrentDate(new Date());
   }
 
   function updateCalendar(monthOffset: number) {
@@ -56,14 +65,55 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
   return (
     <>
       <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen && chosenDay.date !== null}
+        onClose={() => {
+          setIsModalOpen(false);
+          setChosenDay(initialChosenDay);
+        }}
         onConfirm={() => setIsModalOpen(false)}
-        cancelText="Cancel"
-        confirmText="Confirm"
+        confirmText="Close"
       >
-        <h1>Hello world</h1>
+        <header
+          id="modal-header"
+          className="p-4 flex justify-between items-center"
+        >
+          <h1 className="font-bold text-lg">
+            Events on {format(new Date(chosenDay.date!), 'M/d/yyyy')}
+          </h1>
+
+          <button onClick={() => setIsModalOpen(false)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </header>
+
+        <ul id="modal-section" className="max-h-96 overflow-y-auto">
+          {chosenDay.events.map((e) => (
+            <li key={e.id}>
+              <Event
+                key={e.id}
+                event={e}
+                className="block m-2 rounded p-4 sm:p-2"
+              >
+                {e.title}
+              </Event>
+            </li>
+          ))}
+        </ul>
       </Modal>
+
       <div className="lg:flex lg:h-full lg:flex-col">
         <header className="flex items-center justify-between lg:flex-none pb-4">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -172,24 +222,28 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
 
               <div id="events" className="flex flex-col w-full gap-1">
                 {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
-                  <button
-                    key={e.id}
-                    className="w-full py-1 px-2 bg-green-200 hover:bg-green-300 whitespace-nowrap overflow-hidden"
-                    onClick={() => setIsModalOpen(true)}
-                  >
+                  <Event key={e.id} event={e} className="w-full py-1 px-2">
                     {e.title}
-                  </button>
+                  </Event>
                 ))}
               </div>
 
               {eventsForDay.length <= maxVisibleEventsPerDay ? null : (
-                <button className="mt-auto ml-1">
+                <button
+                  id="show-more-events"
+                  className="mt-auto ml-1"
+                  onClick={() => {
+                    setChosenDay({ date, events: eventsForDay });
+                    setIsModalOpen(true);
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
+                    id="ellipsis-horizontal-icon"
                     className="w-6 h-6"
                   >
                     <path
@@ -221,5 +275,24 @@ const Day = ({ children, className, ...rest }: DayProps) => {
     >
       {children}
     </div>
+  );
+};
+
+interface EventProps extends HTMLAttributes<HTMLAnchorElement> {
+  event: CalendarEvent;
+}
+
+const Event = ({ event, className }: EventProps) => {
+  return (
+    <a
+      href="#sample-link-url"
+      key={event.id}
+      className={cn(
+        'bg-calendar-event whitespace-nowrap overflow-hidden',
+        className
+      )}
+    >
+      {event.title}
+    </a>
   );
 };
