@@ -61,6 +61,8 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
   const paddingDays = Array.from({ length: firstDayOfMonth }, (_, i) => i);
 
   const maxVisibleEventsPerDay = 2;
+  const tooManyEvents = (events: CalendarEvent[]) =>
+    events.length > maxVisibleEventsPerDay;
 
   return (
     <>
@@ -72,11 +74,14 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
       >
         <header
           id="modal-header"
-          className="p-4 flex justify-between items-center"
+          className="p-4 flex justify-between items-center text-lg"
         >
-          <h1 className="font-bold text-lg">
-            Events on {format(new Date(chosenDay.date!), 'M/d/yyyy')}
-          </h1>
+          <div className="flex items-center">
+            <h1 className="ml-1 font-bold">
+              {chosenDay.events.length} events on{' '}
+              {format(new Date(chosenDay.date!), 'M/d/yyyy')}
+            </h1>
+          </div>
 
           <button onClick={() => setIsModalOpen(false)}>
             <svg
@@ -215,6 +220,12 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
             <Day
               key={day}
               className="text-gray-900 self-start flex flex-col text-2xs md:text-xs"
+              onClick={() => {
+                if (!tooManyEvents(eventsForDay)) return;
+
+                setChosenDay({ date, events: eventsForDay });
+                setIsModalOpen(true);
+              }}
             >
               <time
                 className={cn(
@@ -236,31 +247,22 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
                 ))}
               </div>
 
-              {eventsForDay.length <= maxVisibleEventsPerDay ? null : (
-                <button
-                  id="show-more-events"
-                  className="mt-auto ml-1"
-                  onClick={() => {
-                    setChosenDay({ date, events: eventsForDay });
-                    setIsModalOpen(true);
-                  }}
+              {!tooManyEvents(eventsForDay) ? null : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  id="ellipsis-horizontal-icon"
+                  className="w-6 h-6 mt-auto ml-1"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    id="ellipsis-horizontal-icon"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                    />
-                  </svg>
-                </button>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                  />
+                </svg>
               )}
             </Day>
           ))}
