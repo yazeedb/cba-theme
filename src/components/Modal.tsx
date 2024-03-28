@@ -3,25 +3,23 @@ import { Dialog, Transition } from '@headlessui/react';
 
 interface ModalProps {
   isOpen: boolean;
-  onConfirm: () => void;
   onClose: () => void;
   children: ReactNode;
-  confirmText: string;
-  // cancelText: string;
+  closeText: string;
+  onAnimateEnd: () => void;
 }
 
 export const Modal = ({
   isOpen,
   onClose,
-  confirmText,
-  // cancelText,
-  onConfirm,
+  closeText,
+  onAnimateEnd,
   children
 }: ModalProps) => {
   const cancelButtonRef = useRef(null);
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root show={isOpen} as={Fragment} afterLeave={onAnimateEnd}>
       <Dialog
         as="div"
         className="relative z-10"
@@ -61,18 +59,10 @@ export const Modal = ({
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-slate-200 hover:bg-slate-100 px-3 py-2 text-sm font-semibold text-black shadow-sm sm:ml-3 sm:w-auto"
-                    onClick={() => onConfirm()}
-                  >
-                    {confirmText}
-                  </button>
-                  {/* <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => onClose()}
-                    ref={cancelButtonRef}
                   >
-                    {cancelText}
-                  </button> */}
+                    {closeText}
+                  </button>
                 </footer>
               </Dialog.Panel>
             </Transition.Child>

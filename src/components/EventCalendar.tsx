@@ -66,12 +66,9 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
     <>
       <Modal
         isOpen={isModalOpen && chosenDay.date !== null}
-        onClose={() => {
-          setIsModalOpen(false);
-          setChosenDay(initialChosenDay);
-        }}
-        onConfirm={() => setIsModalOpen(false)}
-        confirmText="Close"
+        onClose={() => setIsModalOpen(false)}
+        onAnimateEnd={() => setChosenDay(initialChosenDay)}
+        closeText="Close"
       >
         <header
           id="modal-header"
