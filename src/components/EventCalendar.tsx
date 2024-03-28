@@ -208,15 +208,17 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
           {days.map(({ date, day, isToday, eventsForDay }) => (
             <Day
               key={day}
-              className={cn(
-                'text-gray-900 self-start flex flex-col text-2xs md:text-xs',
-                {
-                  'bg-slate-200': isToday,
-                  'bg-white': !isToday
-                }
-              )}
+              className="text-gray-900 self-start flex flex-col text-2xs md:text-xs"
             >
-              <time className="px-3 py-2" dateTime={date.toDateString()}>
+              <time
+                className={cn(
+                  'w-5 h-5 m-1 flex items-center justify-center rounded-full p-3',
+                  {
+                    'bg-green-800 text-white font-bold': isToday
+                  }
+                )}
+                dateTime={date.toDateString()}
+              >
                 {day}
               </time>
 
