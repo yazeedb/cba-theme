@@ -39,6 +39,9 @@ export interface CalendarEvent {
   title: string;
   description: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   price: string;
+  image: string;
 }

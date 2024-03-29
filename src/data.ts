@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import type { BoardMember, CalendarEvent } from './interfaces';
 
 export const getRecommendedBooks = async () => {
@@ -165,23 +166,7 @@ export const getBoardMembers = async (): Promise<BoardMember[]> => {
 };
 
 export const getEvents = async (): Promise<CalendarEvent[]> => {
-  return Array.from({ length: 200 }, (_, index) => {
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 20);
-
-    const endDate = new Date();
-    endDate.setDate(startDate.getDate() + 20);
-
-    return {
-      id: index.toString(),
-      title: `Sample Event ${index + 1}`,
-      description: `This is a description for Sample Event ${index + 1}`,
-      date: getRandomDateBetween(startDate, endDate).toDateString(),
-      // date: '2024-03-27',
-      location: 'Wayne, NJ',
-      price: '$50'
-    };
-  });
+  return events;
 };
 
 const books = [
@@ -730,20 +715,40 @@ const books = [
   }
 ];
 
-const getRandomDateBetween = (start: Date, end: Date): Date => {
-  // Step 1: Convert both dates to timestamps
-  const startTimestamp = start.getTime();
-  const endTimestamp = end.getTime();
+const randomNumber = (min: number, max: number) =>
+  Math.random() * (max - min) + min;
 
-  // Ensure the start date is earlier than the end date
-  if (startTimestamp >= endTimestamp) {
-    throw new Error('The start date must be before the end date.');
-  }
+const createEvents = () => {
+  const pastDates = Array.from({ length: 10 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    return date;
+  });
 
-  // Step 2 & 3: Generate a random timestamp between start and end
-  const randomTimestamp =
-    startTimestamp + Math.random() * (endTimestamp - startTimestamp);
+  const futureDates = Array.from({ length: 10 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+    return date;
+  });
 
-  // Step 4 & 5: Convert the random timestamp back to a date and return
-  return new Date(randomTimestamp);
+  return [...pastDates, ...futureDates].flatMap((date, index) => {
+    return Array.from({ length: randomNumber(2, 5) }, () => {
+      return {
+        id: v4(),
+        title: `Example Event ${index + 1}`,
+        description:
+          'This course will focus on the basics of improving your cooking skills. We will go over what equipment every cook must own, how to use a knife properly, how to sauté, roasting 101, and much more.  You will have the opportunity to practice your skills, so bring an apron and be prepared to get messy!',
+        date: date.toDateString(),
+        startTime: '3:00pm',
+        endTime: '5:00pm',
+        location: 'Wayne, NJ',
+        price: '50',
+        image: '/cba-photo.jpeg'
+      };
+    });
+  });
 };
+
+// Doing this here, so the IDs aren't re-generated every time
+// otherwise the details page keeps 404ing.
+const events = createEvents();

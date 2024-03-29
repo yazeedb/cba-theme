@@ -43,7 +43,8 @@ const inlineSvgs = new Map([
   ]
 ]);
 
-const parsePathname = (pathname: string) => pathname.replace(/\//g, '');
+const parsePathname = (pathname: string) =>
+  pathname.split('/').filter(Boolean)[0];
 const pathnamesAreEqual = (p1: string, p2: string) =>
   parsePathname(p1) === parsePathname(p2);
 ---

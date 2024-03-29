@@ -7,7 +7,7 @@ import {
   isToday,
   startOfMonth
 } from 'date-fns';
-import { useState, type HTMLAttributes } from 'react';
+import { useState, type HTMLProps } from 'react';
 import type { CalendarEvent } from '../interfaces';
 import { Modal } from './Modal';
 
@@ -35,7 +35,6 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
     setCurrentDate((current) => addMonths(current, monthOffset));
   }
 
-  // Simplified with date-fns
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfMonth = startOfMonth(currentDate).getDay();
 
@@ -105,6 +104,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
           {chosenDay.events.map((e) => (
             <li key={e.id}>
               <Event
+                linkToFullEvent={true}
                 key={e.id}
                 event={e}
                 className="block m-2 rounded p-4 sm:p-2"
@@ -216,63 +216,88 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
             <Day key={day} className="bg-gray-50" />
           ))}
 
-          {days.map(({ date, day, isToday, eventsForDay }) => (
-            <Day
-              key={day}
-              className="text-gray-900 self-start flex flex-col text-2xs md:text-xs"
-              onClick={() => {
-                if (!tooManyEvents(eventsForDay)) return;
-
-                setChosenDay({ date, events: eventsForDay });
-                setIsModalOpen(true);
-              }}
-            >
-              <time
-                className={cn(
-                  'w-5 h-5 m-1 flex items-center justify-center rounded-full p-3',
-                  {
-                    'bg-green-800 text-white font-bold': isToday
-                  }
-                )}
-                dateTime={date.toDateString()}
-              >
-                {day}
-              </time>
-
-              <div id="events" className="flex flex-col w-full gap-1">
-                {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
-                  <Event key={e.id} event={e} className="w-full py-1 px-2">
-                    {e.title}
-                  </Event>
-                ))}
-              </div>
-
-              {!tooManyEvents(eventsForDay) ? null : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  id="ellipsis-horizontal-icon"
-                  className="w-6 h-6 mt-auto ml-1"
+          {days.map(({ date, day, isToday, eventsForDay }) => {
+            const children = (
+              <>
+                <time
+                  className={cn(
+                    'w-5 h-5 m-1 flex items-center justify-center rounded-full p-3',
+                    {
+                      'bg-green-800 text-white font-bold': isToday
+                    }
+                  )}
+                  dateTime={date.toDateString()}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
-              )}
-            </Day>
-          ))}
+                  {day}
+                </time>
+
+                <div id="events" className="flex flex-col w-full gap-1">
+                  {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
+                    <Event
+                      key={e.id}
+                      event={e}
+                      className="w-full py-1 px-2"
+                      linkToFullEvent={!tooManyEvents(eventsForDay)}
+                    >
+                      {e.title}
+                    </Event>
+                  ))}
+                </div>
+
+                {!tooManyEvents(eventsForDay) ? null : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    id="ellipsis-horizontal-icon"
+                    className="w-6 h-6 mt-auto ml-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    />
+                  </svg>
+                )}
+              </>
+            );
+
+            return (
+              <Day
+                key={day}
+                className="text-gray-900 self-start flex flex-col text-2xs md:text-xs"
+                onClick={() => {
+                  if (!tooManyEvents(eventsForDay)) return;
+
+                  setChosenDay({ date, events: eventsForDay });
+                  setIsModalOpen(true);
+                }}
+              >
+                {tooManyEvents(eventsForDay) ? (
+                  <button
+                    className="w-full text-left"
+                    onClick={() => {
+                      setChosenDay({ date, events: eventsForDay });
+                      setIsModalOpen(true);
+                    }}
+                  >
+                    {children}
+                  </button>
+                ) : (
+                  children
+                )}
+              </Day>
+            );
+          })}
         </div>
       </div>
     </>
   );
 };
 
-interface DayProps extends HTMLAttributes<HTMLDivElement> {}
+interface DayProps extends HTMLProps<HTMLDivElement> {}
 
 const Day = ({ children, className, ...rest }: DayProps) => {
   return (
@@ -288,21 +313,29 @@ const Day = ({ children, className, ...rest }: DayProps) => {
   );
 };
 
-interface EventProps extends HTMLAttributes<HTMLAnchorElement> {
+interface EventProps extends HTMLProps<HTMLAnchorElement> {
   event: CalendarEvent;
+  linkToFullEvent: boolean;
 }
 
-const Event = ({ event, className }: EventProps) => {
-  return (
-    <a
-      href="#sample-link-url"
-      key={event.id}
-      className={cn(
-        'bg-calendar-event whitespace-nowrap overflow-hidden',
-        className
-      )}
-    >
-      {event.title}
-    </a>
-  );
+const Event = ({ event, className, linkToFullEvent }: EventProps) => {
+  const href = `/events/${event.id}`;
+
+  const props = {
+    key: event.id,
+    className: cn(
+      'bg-calendar-event whitespace-nowrap overflow-hidden',
+      className
+    )
+  };
+
+  if (linkToFullEvent) {
+    return (
+      <a href={href} {...props}>
+        {event.title}
+      </a>
+    );
+  }
+
+  return <span {...props}>{event.title}</span>;
 };
