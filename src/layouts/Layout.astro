@@ -83,4 +83,9 @@ const { title } = Astro.props;
       padding-bottom: env(safe-area-inset-bottom);
     }
   }
+
+  .prev-slide,
+  .next-slide {
+    top: var(--swiper-navigation-top-offset, 40%);
+  }
 </style>
