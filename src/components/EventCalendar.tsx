@@ -10,6 +10,7 @@ import {
 import { useState, type HTMLProps } from 'react';
 import type { CalendarEvent } from '../interfaces';
 import { Modal } from './Modal';
+import { createEventDetailsUrl } from '../utils';
 
 interface EventCalendarProps {
   events: CalendarEvent[];
@@ -319,8 +320,6 @@ interface EventProps extends HTMLProps<HTMLAnchorElement> {
 }
 
 const Event = ({ event, className, linkToFullEvent }: EventProps) => {
-  const href = `/events/${event.id}`;
-
   const props = {
     key: event.id,
     className: cn(
@@ -331,7 +330,7 @@ const Event = ({ event, className, linkToFullEvent }: EventProps) => {
 
   if (linkToFullEvent) {
     return (
-      <a href={href} {...props}>
+      <a href={createEventDetailsUrl(event.id)} {...props}>
         {event.title}
       </a>
     );

@@ -8,6 +8,10 @@ export const generateGoogleCalendarUrl = ({
   location,
   timezone
 }: EventDetails) => {
+  const formatDate = (date: Date) => {
+    return format(date, "yyyyMMdd'T'HHmmss'Z'");
+  };
+
   const baseUrl = 'https://calendar.google.com/calendar/u/0/r/eventedit';
   const encodedTitle = encodeURIComponent(title);
   const encodedDetails = encodeURIComponent(details);
@@ -19,10 +23,6 @@ export const generateGoogleCalendarUrl = ({
   return `${baseUrl}?dates=${formattedStartDate}/${formattedEndDate}&text=${encodedTitle}&details=${encodedDetails}&location=${encodedLocation}&trp=false&ctz=${encodedTimezone}&sprop=website:https://demo.theeventscalendar.com`;
 };
 
-const formatDate = (date: Date) => {
-  return format(date, "yyyyMMdd'T'HHmmss'Z'");
-};
-
 interface EventDetails {
   startDate: Date;
   endDate: Date;
@@ -31,3 +31,5 @@ interface EventDetails {
   location: string;
   timezone: string;
 }
+
+export const createEventDetailsUrl = (eventId: string) => `/events/${eventId}`;

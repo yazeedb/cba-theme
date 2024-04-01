@@ -719,20 +719,20 @@ const randomNumber = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 
 const createEvents = () => {
-  const pastDates = Array.from({ length: 10 }, (_, i) => {
+  const pastDates = Array.from({ length: 30 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - i);
     return date;
   });
 
-  const futureDates = Array.from({ length: 10 }, (_, i) => {
+  const futureDates = Array.from({ length: 20 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
     return date;
   });
 
   return [...pastDates, ...futureDates].flatMap((date, index) => {
-    return Array.from({ length: randomNumber(2, 5) }, () => {
+    return Array.from({ length: randomNumber(0, 4) }, () => {
       return {
         id: v4(),
         title: `Example Event ${index + 1}`,

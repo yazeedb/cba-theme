@@ -1,4 +1,5 @@
 ---
+import { isWithinInterval, addWeeks } from 'date-fns';
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import NewTabLink from '../components/NewTabLink.astro';
@@ -7,6 +8,15 @@ import YouTube from '../components/svgs/YouTube.astro';
 import Facebook from '../components/svgs/Facebook.astro';
 import Instagram from '../components/svgs/Instagram.astro';
 import { Carousel } from '../components/Carousel';
+import { getEvents } from '../data';
+
+const events = await getEvents();
+const upcomingEvents = events.filter((event) =>
+  isWithinInterval(new Date(event.date), {
+    start: new Date(),
+    end: addWeeks(new Date(), 2)
+  })
+);
 ---
 
 <Layout title="Home">
@@ -15,7 +25,9 @@ import { Carousel } from '../components/Carousel';
 
     <Section>
       <section class="flex justify-between items-center">
-        <h2 class="text-primary-header-dark section-heading">Our Events</h2>
+        <h2 class="text-primary-header-dark section-heading">
+          Upcoming Events
+        </h2>
 
         <a
           class="border-slate-700 text-slate-700 font-bold border-2 p-2 rounded flex items-center"
@@ -38,36 +50,7 @@ import { Carousel } from '../components/Carousel';
       </section>
 
       <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <EventCard
-          name="Monthly Potluck"
-          description="Gather with fellow community members for our monthly potluck. Share delicious dishes, stories, and enjoy our cultural richness together."
-          price="Free"
-          date="June 1st at 2:00 PM"
-        />
-        <EventCard
-          name="Learn Circassian Workshop"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="$10/month"
-          date="June 5th at 10:00 AM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
-        <EventCard
-          name="Learn Circassian Workshop"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="$10/month"
-          date="June 5th at 10:00 AM"
-        />
-        <EventCard
-          name="Test Event"
-          description="Dive into the beauty of the Circassian language in this interactive workshop designed for all levels. Materials provided on-site."
-          price="Free"
-          date="July 5th at 12:00 PM"
-        />
+        {upcomingEvents.map((event) => <EventCard event={event} />)}
       </section>
     </Section>
 
