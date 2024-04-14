@@ -9,7 +9,7 @@ const events = await getEvents();
 <Layout title="Events">
   <main>
     <section class="py-6 sm:max-w-7xl mx-auto">
-      <EventCalendar events={events} />
+      <EventCalendar events={events} client:load />
     </section>
   </main>
 </Layout>
