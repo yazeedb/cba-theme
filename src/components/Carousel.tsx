@@ -2,6 +2,11 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import cn from 'classnames';
 
+const imageDimensions = {
+  width: 2000,
+  height: 600
+};
+
 export const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 })
@@ -19,8 +24,12 @@ export const Carousel = () => {
               <div className="aspect-w-16 aspect-h-9 w-full h-auto">
                 <img
                   className="w-full h-full object-cover"
-                  src={`https://picsum.photos/id/${i + 1}/2000/600`}
+                  src={`https://picsum.photos/id/${i + 1}/${imageDimensions.width}/${imageDimensions.height}`}
                   alt="Beautiful landscape"
+                  width={imageDimensions.width}
+                  height={imageDimensions.height}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
