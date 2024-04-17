@@ -27,7 +27,7 @@ export interface BoardMember {
   team: string;
 }
 
-export interface RecommendedBook {
+export interface Book {
   image_url: string;
   title: string;
   author: string;

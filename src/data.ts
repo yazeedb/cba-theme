@@ -1,7 +1,16 @@
 import { v4 } from 'uuid';
 import type { BoardMember, CalendarEvent } from './interfaces';
+import { parseCarouselAd } from './data/carouselAds';
 
-export const getRecommendedBooks = async () => {
+export const getCarouselAds = async () => {
+  return fetch(
+    'http://localhost:8888/wordpress/wp-json/wp/v2/carousel-ad?_embed'
+  )
+    .then((res) => res.json())
+    .then((ads) => ads.map(parseCarouselAd));
+};
+
+export const getBooks = async () => {
   return books.map((book) => ({
     title: book.title.rendered,
     author: book.acf.author,
