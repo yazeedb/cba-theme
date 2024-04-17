@@ -1,8 +1,16 @@
-import type { Post } from './commonInterfaces';
+import type { Post, Rendered } from './commonInterfaces';
 
-export const parseEvent = (data: EventResponse): Event => {
+export const getEvents = () => {
+  return fetch('http://localhost:8888/wordpress/wp-json/wp/v2/acf-custom-event')
+    .then((res) => res.json())
+    .then((data: EventResponse[]) => data.map(parseEvent));
+};
+
+const parseEvent = (data: EventResponse): Event => {
   return {
     id: data.id,
+    title: data.title.rendered,
+    content: data.content.rendered,
     fields: {
       ...data.acf,
       start_date: parseDate(data.acf.start_date),
@@ -20,10 +28,13 @@ const parseDate = (date: string) =>
 
 export interface Event {
   id: number;
+  title: string;
+  content: string;
   fields: AcfFields;
 }
 
 interface EventResponse extends Post {
+  content: Rendered;
   acf: AcfFields;
 }
 

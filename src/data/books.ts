@@ -1,6 +1,6 @@
 import type { Post } from './commonInterfaces';
 
-export const parseBook = (data: BookResponse): Book => {
+const parseBook = (data: BookResponse): Book => {
   const [image] = data._embedded['wp:featuredmedia'];
 
   return {

@@ -1,6 +1,14 @@
 import type { Post } from './commonInterfaces';
 
-export const parseCarouselAd = (data: CarouselAdResponse): CarouselAd => {
+export const getCarouselAds = () => {
+  return fetch(
+    'http://localhost:8888/wordpress/wp-json/wp/v2/carousel-ad?_embed'
+  )
+    .then((res) => res.json())
+    .then((data: CarouselAdResponse[]) => data.map(parseCarouselAd));
+};
+
+const parseCarouselAd = (data: CarouselAdResponse): CarouselAd => {
   const [image] = data._embedded['wp:featuredmedia'];
 
   return {
@@ -12,7 +20,7 @@ export const parseCarouselAd = (data: CarouselAdResponse): CarouselAd => {
   };
 };
 
-export interface CarouselAd {
+interface CarouselAd {
   id: number;
   image: {
     src: string;

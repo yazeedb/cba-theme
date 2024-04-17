@@ -1,6 +1,6 @@
 import type { Post } from './commonInterfaces';
 
-export const parseBoardMember = (data: BoardMemberResponse): BoardMember => {
+const parseBoardMember = (data: BoardMemberResponse): BoardMember => {
   return {
     id: data.id,
     fields: data.acf

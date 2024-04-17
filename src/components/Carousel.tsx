@@ -3,11 +3,15 @@ import Autoplay from 'embla-carousel-autoplay';
 import cn from 'classnames';
 
 const imageDimensions = {
-  width: 2000,
+  width: 1000,
   height: 600
 };
 
-export const Carousel = () => {
+interface CarouselProps {
+  images: { src: string; alt: string }[];
+}
+
+export const Carousel = ({ images }: CarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 })
   ]);
@@ -16,16 +20,16 @@ export const Carousel = () => {
     <div className="embla overflow-hidden relative">
       <div className="embla_viewport" ref={emblaRef}>
         <div className="embla__container flex">
-          {Array.from({ length: 5 }, (_, i) => (
+          {images.map((image) => (
             <div
               className="embla__slide flex-none basis-full min-w-0 text-center flex justify-center items-center"
-              key={i}
+              key={image.src}
             >
               <div className="aspect-w-16 aspect-h-9 w-full h-auto">
                 <img
                   className="w-full h-full object-cover"
-                  src={`https://picsum.photos/id/${i + 1}/${imageDimensions.width}/${imageDimensions.height}`}
-                  alt="Beautiful landscape"
+                  src={image.src}
+                  alt={image.alt}
                   width={imageDimensions.width}
                   height={imageDimensions.height}
                   loading="lazy"

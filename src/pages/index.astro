@@ -1,5 +1,4 @@
 ---
-import { isWithinInterval, addWeeks } from 'date-fns';
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import NewTabLink from '../components/NewTabLink.astro';
@@ -8,20 +7,28 @@ import YouTube from '../components/svgs/YouTube.astro';
 import Facebook from '../components/svgs/Facebook.astro';
 import Instagram from '../components/svgs/Instagram.astro';
 import { Carousel } from '../components/Carousel';
-import { getEvents } from '../data';
+import { getCarouselAds } from '../data/carouselAds';
+import { getEvents } from '../data/events';
+import { getPageSpoilers } from '../data/pageSpoilers';
+import { addWeeks, isWithinInterval } from 'date-fns';
+import classNames from 'classnames';
+
+const carouselAds = await getCarouselAds();
 
 const events = await getEvents();
 const upcomingEvents = events.filter((event) =>
-  isWithinInterval(new Date(event.date), {
+  isWithinInterval(new Date(event.fields.start_date), {
     start: new Date(),
     end: addWeeks(new Date(), 2)
   })
 );
+
+const pageSpoilers = await getPageSpoilers();
 ---
 
 <Layout title="Home">
   <main>
-    <Carousel client:load />
+    <Carousel images={carouselAds.map((c) => c.image)} client:load />
 
     <Section>
       <section class="flex justify-between items-center">
@@ -54,45 +61,26 @@ const upcomingEvents = events.filter((event) =>
       </section>
     </Section>
 
-    <Section containerClass="bg-primary-green text-paragraph-light">
-      <h2 class="section-heading">Learn About the CBA</h2>
+    {
+      pageSpoilers.reverse().map((spoiler, index) => (
+        <Section
+          containerClass={classNames({
+            'bg-primary-green text-paragraph-light': index % 2 === 0
+          })}
+        >
+          <h2 class="section-heading">{spoiler.title}</h2>
 
-      <p class="section-paragraph">
-        The Circassian Benevolent Association, nestled in the quaint town of
-        Wayne, New Jersey, stands as a beacon of cultural heritage and community
-        spirit. Established in the late 19th century by early Circassian
-        immigrants, this association has been a cornerstone of support and
-        cultural preservation for the Circassian community in America.
-      </p>
+          <div
+            class="section-layout section-paragraph"
+            set:html={spoiler.content}
+          />
 
-      <a class="cta-button self-start" href="/about">Read more</a>
-    </Section>
-
-    <Section>
-      <h2 class="section-heading">Circassian History</h2>
-
-      <p class="section-paragraph">
-        Circassians, also called Cherkess or Adyghe (Adyghe and Kabardian:
-        Адыгэхэр, romanized: Adygekher), are an indigenous Northwest Caucasian
-        ethnic group and nation native to the historical country-region of
-        Circassia in the North Caucasus.
-      </p>
-
-      <p class="section-paragraph">
-        As a consequence of the Circassian genocide perpetrated by the Russian
-        Empire in the 19th century during the Russo-Circassian War, most
-        Circassians were exiled from their homeland in Circassia to modern-day
-        Turkey and the rest of the Middle East, where most of them are today.
-      </p>
-
-      <p class="section-paragraph">
-        In the early 1990s, the Unrepresented Nations and Peoples Organization
-        estimated that there are as many as 3.7 million Circassians in diaspora
-        in over 50 countries.
-      </p>
-
-      <a class="cta-button self-start" href="/history">Learn more</a>
-    </Section>
+          <a class="cta-button self-start" href="/about">
+            Read more
+          </a>
+        </Section>
+      ))
+    }
 
     <Section containerClass="bg-slate-100">
       <h2 class="section-heading text-primary-header-dark">Connect With Us</h2>
