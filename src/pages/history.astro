@@ -9,19 +9,18 @@ import CircassianAlphabet from '../assets/circassian-alphabet.jpeg';
 import CircassianFlag from '../assets/circassian-flag.png';
 import DiasporaMap from '../assets/diaspora-map.png';
 import { getBooks } from '../data';
-
-const subtitle =
-  "From ancient warriors to a global diaspora, the Circassians' enduring spirit transcends centuries of history and hardship.";
+import { getPage } from '../data/page';
 
 const books = await getBooks();
+const history = await getPage(183);
 ---
 
 <Layout title="History">
   <main>
     <HeroCoverImage
-      title="Circassian History"
-      subtitle={subtitle}
-      backgroundImage="/circassian-dance-bg.png"
+      title={history.title}
+      subtitle={history.subtitle}
+      backgroundImage={history.image.src}
     />
 
     <Section containerClass="bg-slate-100" innerSectionClass="flex flex-row">

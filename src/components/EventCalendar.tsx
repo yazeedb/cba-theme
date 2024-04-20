@@ -28,13 +28,13 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [chosenDay, setChosenDay] = useState<ChosenDay>(initialChosenDay);
 
-  function goToToday() {
+  const goToToday = () => {
     setCurrentDate(new Date());
-  }
+  };
 
-  function updateCalendar(monthOffset: number) {
+  const updateCalendar = (monthOffset: number) => {
     setCurrentDate((current) => addMonths(current, monthOffset));
-  }
+  };
 
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDayOfMonth = startOfMonth(currentDate).getDay();
