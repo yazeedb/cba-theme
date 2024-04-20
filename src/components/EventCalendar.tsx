@@ -54,7 +54,9 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
           start: new Date(event.fields.start_date),
           end: new Date(event.fields.end_date || event.fields.start_date)
         });
+
         if (range.some((d) => isSameDay(d, date))) acc.push(event);
+
         return acc;
       }, [] as Event[])
       .sort((a, b) =>
