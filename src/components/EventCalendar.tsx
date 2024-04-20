@@ -1,5 +1,7 @@
 import cn from 'classnames';
 import {
+  compareAsc,
+  eachDayOfInterval,
   addMonths,
   format,
   getDaysInMonth,
@@ -46,9 +48,18 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
       i + 1
     );
 
-    const eventsForDay = events.filter((event) =>
-      isSameDay(new Date(event.fields.start_date), date)
-    );
+    const eventsForDay = events
+      .reduce((acc, event) => {
+        const range = eachDayOfInterval({
+          start: new Date(event.fields.start_date),
+          end: new Date(event.fields.end_date || event.fields.start_date)
+        });
+        if (range.some((d) => isSameDay(d, date))) acc.push(event);
+        return acc;
+      }, [] as Event[])
+      .sort((a, b) =>
+        compareAsc(new Date(a.fields.start_date), new Date(b.fields.start_date))
+      );
 
     return {
       day: i + 1,

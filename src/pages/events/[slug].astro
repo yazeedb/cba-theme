@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { Dropdown } from '../../components/Dropdown';
-import { format } from 'date-fns';
+import { format, isEqual } from 'date-fns';
 import { generateGoogleCalendarUrl } from '../../utils';
 import { getEvents } from '../../data/events';
 
@@ -19,6 +19,10 @@ const { slug } = Astro.params;
 const { events } = Astro.props;
 
 const event = events.find((e) => e.slug === slug)!;
+
+const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
+const startDate = formatDate(event.fields.start_date);
+const endDate = formatDate(event.fields.end_date);
 ---
 
 <Layout title={event.title}>
@@ -54,7 +58,11 @@ const event = events.find((e) => e.slug === slug)!;
               class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2"
             >
               <span>
-                {format(event.fields.start_date, 'MMMM d, yyyy')}
+                {
+                  isEqual(event.fields.start_date, event.fields.end_date)
+                    ? startDate
+                    : `${startDate} - ${endDate}`
+                }
               </span>
 
               <span class="hidden sm:block">|</span>
