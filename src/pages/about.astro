@@ -9,7 +9,7 @@ import Book from '../components/svgs/Book.astro';
 import Heart from '../components/svgs/Heart.astro';
 import { getBoardMembers } from '../data';
 
-const tenants = [
+const tenets = [
   {
     title: 'Cultural Preservation',
     icon: Flag,
@@ -82,20 +82,20 @@ const subtitle = `“…study and foster all matters pertaining to the welfare o
     </Section>
 
     <Section containerClass="text-paragraph-light">
-      <h2 class="section-heading text-primary-header-dark">Tenants</h2>
+      <h2 class="section-heading text-primary-header-dark">Tenets</h2>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
-          tenants.map((tenant) => (
+          tenets.map((tenet) => (
             <li class="rounded shadow-md border-2 border-slate-300 p-6 flex justify-center flex-col items-center text-center">
-              <tenant.icon />
+              <tenet.icon />
 
               <h3 class="section-heading text-primary-header-dark py-2">
-                {tenant.title}
+                {tenet.title}
               </h3>
 
               <p class="section-paragraph text-paragraph-dark">
-                {tenant.description}
+                {tenet.description}
               </p>
             </li>
           ))
