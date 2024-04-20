@@ -78,3 +78,19 @@ export interface Post {
     'wp:featuredmedia': EmbeddedMedia[];
   };
 }
+
+export interface ParsedImage {
+  src: string;
+  alt: string;
+}
+
+export const parseFeaturedMedia = (media?: EmbeddedMedia[]): ParsedImage => {
+  if (!media) return { src: '', alt: '' };
+
+  const [image] = media;
+
+  return {
+    src: image?.link ?? '',
+    alt: image?.alt_text ?? ''
+  };
+};

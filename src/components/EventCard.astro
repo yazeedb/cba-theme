@@ -9,19 +9,41 @@ interface Props {
 
 const {
   event: {
-    id,
+    slug,
     title,
     content,
     fields: { price_dollars, price_recurrence, start_date }
   }
 } = Astro.props;
 
+const printRecurrence = (value: string) => {
+  switch (value) {
+    case 'one-time':
+      return '';
+
+    case 'daily':
+      return 'day';
+
+    case 'weekly':
+      return 'week';
+
+    case 'monthly':
+      return 'month';
+
+    case 'yearly':
+      return 'year';
+
+    default:
+      return value;
+  }
+};
+
 const printPrice = () => {
   if (price_dollars === 0) return 'Free';
 
   if (price_recurrence === 'one-time') return `$${price_dollars}`;
 
-  return `$${price_dollars}/${price_recurrence}`;
+  return `$${price_dollars}/${printRecurrence(price_recurrence)}`;
 };
 ---
 
@@ -41,7 +63,7 @@ const printPrice = () => {
     />
 
     <a
-      href={createEventDetailsUrl(id)}
+      href={createEventDetailsUrl(slug)}
       class="cta-button w-full block text-center">Register</a
     >
   </div>

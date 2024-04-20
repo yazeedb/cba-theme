@@ -1,6 +1,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import cn from 'classnames';
+import type { ParsedImage } from '../data/common';
 
 const imageDimensions = {
   width: 1000,
@@ -8,7 +9,7 @@ const imageDimensions = {
 };
 
 interface CarouselProps {
-  images: { src: string; alt: string }[];
+  images: ParsedImage[];
 }
 
 export const Carousel = ({ images }: CarouselProps) => {

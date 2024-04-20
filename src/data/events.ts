@@ -1,4 +1,5 @@
-import type { Post, Rendered } from './commonInterfaces';
+import type { ParsedImage, Post, Rendered } from './common';
+import { parseFeaturedMedia } from './common';
 import { routes } from './routes';
 
 export const getEvents = () => {
@@ -10,8 +11,10 @@ export const getEvents = () => {
 const parseEvent = (data: EventResponse): Event => {
   return {
     id: data.id,
+    slug: data.slug,
     title: data.title.rendered,
     content: data.content.rendered,
+    image: parseFeaturedMedia(data._embedded['wp:featuredmedia']),
     fields: {
       ...data.acf,
       start_date: parseDate(data.acf.start_date),
@@ -32,6 +35,8 @@ export interface Event {
   title: string;
   content: string;
   fields: AcfFields;
+  image: ParsedImage;
+  slug: string;
 }
 
 interface EventResponse extends Post {

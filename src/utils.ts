@@ -32,4 +32,4 @@ interface EventDetails {
   timezone: string;
 }
 
-export const createEventDetailsUrl = (eventId: number) => `/events/${eventId}`;
+export const createEventDetailsUrl = (slug: string) => `/events/${slug}`;

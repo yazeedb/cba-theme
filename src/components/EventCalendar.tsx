@@ -8,17 +8,17 @@ import {
   startOfMonth
 } from 'date-fns';
 import { useState, type HTMLProps } from 'react';
-import type { CalendarEvent } from '../interfaces';
 import { Modal } from './Modal';
 import { createEventDetailsUrl } from '../utils';
+import type { Event } from '../data/events';
 
 interface EventCalendarProps {
-  events: CalendarEvent[];
+  events: Event[];
 }
 
 interface ChosenDay {
   date: Date | null;
-  events: CalendarEvent[];
+  events: Event[];
 }
 
 const initialChosenDay: ChosenDay = { date: null, events: [] };
@@ -47,7 +47,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
     );
 
     const eventsForDay = events.filter((event) =>
-      isSameDay(new Date(event.date), date)
+      isSameDay(new Date(event.fields.start_date), date)
     );
 
     return {
@@ -61,7 +61,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
   const paddingDays = Array.from({ length: firstDayOfMonth }, (_, i) => i);
 
   const maxVisibleEventsPerDay = 2;
-  const tooManyEvents = (events: CalendarEvent[]) =>
+  const tooManyEvents = (events: Event[]) =>
     events.length > maxVisibleEventsPerDay;
 
   return (
@@ -315,7 +315,7 @@ const Day = ({ children, className, ...rest }: DayProps) => {
 };
 
 interface EventProps extends HTMLProps<HTMLAnchorElement> {
-  event: CalendarEvent;
+  event: Event;
   linkToFullEvent: boolean;
 }
 
@@ -330,7 +330,7 @@ const Event = ({ event, className, linkToFullEvent }: EventProps) => {
 
   if (linkToFullEvent) {
     return (
-      <a href={createEventDetailsUrl(event.id)} {...props}>
+      <a href={createEventDetailsUrl(event.slug)} {...props}>
         {event.title}
       </a>
     );

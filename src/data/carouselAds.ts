@@ -1,4 +1,4 @@
-import type { Post } from './commonInterfaces';
+import { parseFeaturedMedia, type ParsedImage, type Post } from './common';
 import { routes } from './routes';
 
 export const getCarouselAds = () => {
@@ -8,23 +8,15 @@ export const getCarouselAds = () => {
 };
 
 const parseCarouselAd = (data: CarouselAdResponse): CarouselAd => {
-  const [image] = data._embedded['wp:featuredmedia'];
-
   return {
     id: data.id,
-    image: {
-      src: image?.link ?? '',
-      alt: image?.alt_text ?? ''
-    }
+    image: parseFeaturedMedia(data._embedded['wp:featuredmedia'])
   };
 };
 
 interface CarouselAd {
   id: number;
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: ParsedImage;
 }
 
 interface CarouselAdResponse extends Post {}

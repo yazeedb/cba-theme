@@ -1,21 +1,24 @@
 ---
-import { getEvents } from '../../data';
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { Dropdown } from '../../components/Dropdown';
 import { format } from 'date-fns';
 import { generateGoogleCalendarUrl } from '../../utils';
+import { getEvents } from '../../data/events';
 
 export async function getStaticPaths() {
   const events = await getEvents();
 
-  return events.map((e) => ({ params: { id: e.id }, props: { events } }));
+  return events.map((e) => ({
+    params: { slug: e.slug },
+    props: { events }
+  }));
 }
 
-const { id } = Astro.params;
+const { slug } = Astro.params;
 const { events } = Astro.props;
 
-const event = events.find((e) => e.id === id)!;
+const event = events.find((e) => e.slug === slug)!;
 ---
 
 <Layout title={event.title}>
@@ -51,13 +54,17 @@ const event = events.find((e) => e.id === id)!;
               class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2"
             >
               <span>
-                {format(event.date, 'MMMM d, yyyy')}
+                {format(event.fields.start_date, 'MMMM d, yyyy')}
               </span>
 
               <span class="hidden sm:block">|</span>
 
               <span>
-                {event.startTime} - {event.endTime}
+                {
+                  event.fields.all_day
+                    ? 'All day'
+                    : `${event.fields.start_time} - ${event.fields.end_time}`
+                }
               </span>
             </section>
           </section>
@@ -72,9 +79,9 @@ const event = events.find((e) => e.id === id)!;
                 rel: 'noreferrer noopener',
                 href: generateGoogleCalendarUrl({
                   title: event.title,
-                  details: event.description,
-                  startDate: new Date(event.date),
-                  endDate: new Date(event.date),
+                  details: event.content,
+                  startDate: new Date(event.fields.start_date),
+                  endDate: new Date(event.fields.end_date),
                   location: '',
                   timezone: ''
                 })
@@ -87,17 +94,16 @@ const event = events.find((e) => e.id === id)!;
       <section id="event-body" class="flex flex-col gap-4">
         <img
           id="event-image"
-          src={event.image}
-          alt={`Main image for ${event.title}`}
+          src={event.image.src}
+          alt={event.image.alt}
           class="rounded"
         />
 
         <article
           id="event-details"
           class="section-paragraph text-paragraph-dark flex-1"
-        >
-          {event.description}
-        </article>
+          set:html={event.content}
+        />
       </section>
     </Section>
   </main>

@@ -1,4 +1,4 @@
-import type { Post, Rendered } from './commonInterfaces';
+import type { Post, Rendered } from './common';
 import { routes } from './routes';
 
 export const getPageSpoilers = () => {

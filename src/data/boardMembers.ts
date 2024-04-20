@@ -1,4 +1,4 @@
-import type { Post } from './commonInterfaces';
+import type { Post } from './common';
 
 const parseBoardMember = (data: BoardMemberResponse): BoardMember => {
   return {

@@ -1,23 +1,18 @@
-import type { Post } from './commonInterfaces';
+import { parseFeaturedMedia, type ParsedImage, type Post } from './common';
 
 const parseBook = (data: BookResponse): Book => {
-  const [image] = data._embedded['wp:featuredmedia'];
-
   return {
     id: data.id,
     title: data.title.rendered,
     author: data.acf.author,
     description: data.acf.description,
-    image: {
-      src: image?.link ?? '',
-      alt: image?.alt_text ?? ''
-    }
+    image: parseFeaturedMedia(data._embedded['wp:featuredmedia'])
   };
 };
 
 export interface Book {
   id: number;
-  image: { src: string; alt: string };
+  image: ParsedImage;
   title: string;
   author: string;
   description: string;
