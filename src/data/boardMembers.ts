@@ -1,4 +1,11 @@
 import type { Post } from './common';
+import { routes } from './routes';
+
+export const getBoardMembers = () => {
+  return fetch(routes.boardMembers)
+    .then((res) => res.json())
+    .then((data: BoardMemberResponse[]) => data.map(parseBoardMember));
+};
 
 const parseBoardMember = (data: BoardMemberResponse): BoardMember => {
   return {

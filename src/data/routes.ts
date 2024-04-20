@@ -5,5 +5,7 @@ export const routes = {
   events: `${baseRoute}/acf-custom-event?_embed`,
   pageSpoilers: `${baseRoute}/page-spoiler`,
   carouselAds: `${baseRoute}/carousel-ad?_embed`,
-  oneEvent: (id: number) => `${routes.events}/${id}`
+  tenets: `${baseRoute}/tenet?acf_format=standard`,
+  page: (id: number) => `${baseRoute}/pages/${id}?_embed`,
+  post: (id: number) => `${baseRoute}/posts/${id}`
 };

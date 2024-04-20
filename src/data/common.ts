@@ -1,3 +1,10 @@
+export interface Page extends Post {
+  // Make sure to update page_subtitle's allowlist, because today it only
+  // supports About/History, so this guarantee may be invalid if you
+  // add pages without allowlisting them.
+  acf: { page_subtitle: string };
+}
+
 export interface Rendered {
   rendered: string;
 }
@@ -70,6 +77,7 @@ export interface Post {
   type: string;
   link: string;
   title: Rendered;
+  content: Rendered;
   featured_media: number;
   template: string;
   acf: any;

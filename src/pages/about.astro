@@ -3,82 +3,46 @@ import cn from 'classnames';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import HeroCoverImage from '../components/HeroCoverImage.astro';
-import Flag from '../components/svgs/Flag.astro';
-import People from '../components/svgs/People.astro';
-import Book from '../components/svgs/Book.astro';
-import Heart from '../components/svgs/Heart.astro';
-import { getBoardMembers } from '../data';
+import { getBoardMembers } from '../data/boardMembers';
+import type { BoardMember } from '../data/boardMembers';
+import { getVision } from '../data/vision';
+import { getTenets } from '../data/tenets';
+import { getPage } from '../data/page';
 
-const tenets = [
-  {
-    title: 'Cultural Preservation',
-    icon: Flag,
-    description:
-      'To safeguard and share the Circassian culture, language, and traditions through various educational and cultural programs.'
-  },
-  {
-    title: 'Community Engagement',
-    icon: Heart,
-    description:
-      'To strengthen the Circassian community by organizing events, support groups, and initiatives that foster unity and mutual support.'
-  },
-  {
-    title: 'Outreach and Education',
-    icon: Book,
-    description:
-      'To educate the wider public about Circassian history and culture, promoting diversity and intercultural dialogue.'
-  },
-  {
-    title: 'Youth Empowerment',
-    icon: People,
-    description:
-      'To invest in the younger generation, providing them with opportunities to learn, participate, and lead within the community.'
-  }
-];
+const tenets = await getTenets();
 
-interface BoardMember {
-  first_name: string;
-  last_name: string;
-  position: string;
-  team: string;
-}
-
-const boardMembers: BoardMember[] = await getBoardMembers();
+const boardMembers = await getBoardMembers();
 
 const teamMap = new Map<string, BoardMember[]>();
 
 for (const member of boardMembers.reverse()) {
-  if (teamMap.has(member.team)) {
-    teamMap.get(member.team)?.push(member);
+  if (teamMap.has(member.fields.team)) {
+    teamMap.get(member.fields.team)?.push(member);
   } else {
-    teamMap.set(member.team, [member]);
+    teamMap.set(member.fields.team, [member]);
   }
 }
 
-const subtitle = `“…study and foster all matters pertaining to the welfare of the
-            Circassians in America… and to strengthen the cooperative ties among
-            the Circassians wherever they may be to preserve and nurture the
-            Circassian heritage.”`;
+const vision = await getVision();
+
+const about = await getPage(201);
 ---
 
 <Layout title="About">
   <main>
     <HeroCoverImage
-      title="Our Mission"
-      subtitle={subtitle}
-      backgroundImage="/cba-photo.jpeg"
+      title={about.title}
+      subtitle={about.subtitle}
+      backgroundImage={about.image.src}
     />
 
     <Section containerClass="bg-slate-100">
-      <h2 class="section-heading text-primary-header-dark">Vision</h2>
+      <h2 class="section-heading text-primary-header-dark">{vision.title}</h2>
 
-      <p class="section-paragraph text-paragraph-dark">
-        We envision a world where Circassian culture is widely recognized and
-        celebrated, and where our community members are empowered to thrive in a
-        multicultural society. Our aim is to build bridges of understanding and
-        cooperation, ensuring that the unique traditions and values of the
-        Circassian people continue to enrich our diverse world.
-      </p>
+      <div
+        class="section-paragraph text-paragraph-dark"
+        set:html={vision.content}
+      />
     </Section>
 
     <Section containerClass="text-paragraph-light">
@@ -86,16 +50,16 @@ const subtitle = `“…study and foster all matters pertaining to the welfare o
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {
-          tenets.map((tenet) => (
+          tenets.reverse().map((tenet) => (
             <li class="rounded shadow-md border-2 border-slate-300 p-6 flex justify-center flex-col items-center text-center">
-              <tenet.icon />
+              <img src={tenet.fields.icon.url} />
 
               <h3 class="section-heading text-primary-header-dark py-2">
-                {tenet.title}
+                {tenet.fields.name}
               </h3>
 
               <p class="section-paragraph text-paragraph-dark">
-                {tenet.description}
+                {tenet.fields.description}
               </p>
             </li>
           ))
@@ -116,10 +80,10 @@ const subtitle = `“…study and foster all matters pertaining to the welfare o
                 {members.map((member) => (
                   <li>
                     <span class="text-slate-700 block font-bold">
-                      {member.first_name} {member.last_name}
+                      {member.fields.first_name} {member.fields.last_name}
                     </span>
 
-                    <span class="text-slate-600">{member.position}</span>
+                    <span class="text-slate-600">{member.fields.position}</span>
                   </li>
                 ))}
               </ul>
