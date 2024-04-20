@@ -1,7 +1,8 @@
 import type { Post, Rendered } from './commonInterfaces';
+import { routes } from './routes';
 
 export const getEvents = () => {
-  return fetch('http://localhost:8888/wordpress/wp-json/wp/v2/acf-custom-event')
+  return fetch(routes.events)
     .then((res) => res.json())
     .then((data: EventResponse[]) => data.map(parseEvent));
 };

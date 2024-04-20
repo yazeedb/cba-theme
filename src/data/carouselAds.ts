@@ -1,9 +1,8 @@
 import type { Post } from './commonInterfaces';
+import { routes } from './routes';
 
 export const getCarouselAds = () => {
-  return fetch(
-    'http://localhost:8888/wordpress/wp-json/wp/v2/carousel-ad?_embed'
-  )
+  return fetch(routes.carouselAds)
     .then((res) => res.json())
     .then((data: CarouselAdResponse[]) => data.map(parseCarouselAd));
 };

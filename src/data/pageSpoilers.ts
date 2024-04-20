@@ -1,7 +1,8 @@
 import type { Post, Rendered } from './commonInterfaces';
+import { routes } from './routes';
 
 export const getPageSpoilers = () => {
-  return fetch('http://localhost:8888/wordpress/wp-json/wp/v2/page-spoiler')
+  return fetch(routes.pageSpoilers)
     .then((res) => res.json())
     .then((data: PageSpoilerResponse[]) => data.map(parsePageSpoiler));
 };
