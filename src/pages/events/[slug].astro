@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { Dropdown } from '../../components/Dropdown';
 import { format, isSameDay } from 'date-fns';
-import { generateGoogleCalendarUrl } from '../../utils';
+import { createGoogleCalendarUrl } from '../../utils';
 import { getEvents } from '../../data/events';
 
 export async function getStaticPaths() {
@@ -23,6 +23,10 @@ const event = events.find((e) => e.slug === slug)!;
 const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
 const startDate = formatDate(event.start_date);
 const endDate = formatDate(event.end_date);
+
+const formatTime = (date: string) => format(date, 'h:mm aa');
+const startTime = formatTime(event.start_date);
+const endTime = formatTime(event.end_date);
 ---
 
 <Layout title={event.title}>
@@ -68,11 +72,7 @@ const endDate = formatDate(event.end_date);
               <span class="hidden sm:block">|</span>
 
               <span>
-                <!-- {
-                  event.all_day
-                    ? 'All day'
-                    : `${event.start_time} - ${event.end_time}`
-                } -->
+                {event.all_day ? 'All day' : `${startTime} - ${endTime}`}
               </span>
             </section>
           </section>
@@ -85,14 +85,7 @@ const endDate = formatDate(event.end_date);
                 label: 'Google Calendar',
                 target: '_blank',
                 rel: 'noreferrer noopener',
-                href: generateGoogleCalendarUrl({
-                  title: event.title,
-                  details: event.content,
-                  startDate: new Date(event.start_date),
-                  endDate: new Date(event.end_date),
-                  location: '',
-                  timezone: ''
-                })
+                href: createGoogleCalendarUrl(event)
               }
             ]}
           />
@@ -110,7 +103,7 @@ const endDate = formatDate(event.end_date);
         <article
           id="event-details"
           class="section-paragraph text-paragraph-dark flex-1"
-          set:html={event.content}
+          set:html={event.description}
         />
       </section>
     </Section>

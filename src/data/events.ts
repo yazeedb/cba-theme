@@ -9,14 +9,7 @@ export const getEvents = () => {
 
 const parseEvent = (data: EventsCalendar.Event): Event => {
   return {
-    id: data.id,
-    slug: data.slug,
-    title: data.title,
-    content: data.description,
-    all_day: data.all_day,
-    start_date: data.start_date,
-    end_date: data.end_date,
-    price_dollars: data.cost,
+    ...data,
     price_recurrence: parsePriceRecurrence(data),
     image:
       data.image === false
@@ -39,16 +32,8 @@ const parsePriceRecurrence = (
   return (fee as PriceRecurrenceCategory) ?? 'One-time fee';
 };
 
-export interface Event {
-  id: number;
-  title: string;
-  content: string;
+export interface Event extends Omit<EventsCalendar.Event, 'image'> {
   image: ParsedImage;
-  slug: string;
-  all_day: boolean;
-  start_date: string;
-  end_date: string;
-  price_dollars: string;
   price_recurrence: PriceRecurrenceCategory;
 }
 

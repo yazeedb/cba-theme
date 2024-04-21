@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  event: { slug, title, content, price_dollars, price_recurrence, start_date }
+  event: { slug, title, description, cost, price_recurrence, start_date }
 } = Astro.props;
 
 const printRecurrence = (value: PriceRecurrenceCategory) => {
@@ -34,16 +34,15 @@ const printRecurrence = (value: PriceRecurrenceCategory) => {
 };
 
 const printPrice = () => {
-  console.log({ price_dollars, price_recurrence });
-  if (!price_dollars || price_dollars === '' || price_dollars === '0') {
+  if (!cost || cost === '' || cost === '0') {
     return 'Free';
   }
 
   if (price_recurrence === 'One-time fee') {
-    return price_dollars;
+    return cost;
   }
 
-  return `${price_dollars}/${printRecurrence(price_recurrence)}`;
+  return `${cost}/${printRecurrence(price_recurrence)}`;
 };
 ---
 
@@ -59,7 +58,7 @@ const printPrice = () => {
     <h3 class="font-bold text-xl my-2 line-clamp-1">{title}</h3>
     <div
       class="text-gray-700 mb-4 section-paragraph line-clamp-2"
-      set:html={content}
+      set:html={description}
     />
 
     <a
