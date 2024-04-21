@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
 import { Dropdown } from '../../components/Dropdown';
-import { format, isEqual } from 'date-fns';
+import { format, isSameDay } from 'date-fns';
 import { generateGoogleCalendarUrl } from '../../utils';
 import { getEvents } from '../../data/events';
 
@@ -21,8 +21,8 @@ const { events } = Astro.props;
 const event = events.find((e) => e.slug === slug)!;
 
 const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
-const startDate = formatDate(event.fields.start_date);
-const endDate = formatDate(event.fields.end_date);
+const startDate = formatDate(event.start_date);
+const endDate = formatDate(event.end_date);
 ---
 
 <Layout title={event.title}>
@@ -59,7 +59,7 @@ const endDate = formatDate(event.fields.end_date);
             >
               <span>
                 {
-                  isEqual(event.fields.start_date, event.fields.end_date)
+                  isSameDay(event.start_date, event.end_date)
                     ? startDate
                     : `${startDate} - ${endDate}`
                 }
@@ -68,11 +68,11 @@ const endDate = formatDate(event.fields.end_date);
               <span class="hidden sm:block">|</span>
 
               <span>
-                {
-                  event.fields.all_day
+                <!-- {
+                  event.all_day
                     ? 'All day'
-                    : `${event.fields.start_time} - ${event.fields.end_time}`
-                }
+                    : `${event.start_time} - ${event.end_time}`
+                } -->
               </span>
             </section>
           </section>
@@ -88,8 +88,8 @@ const endDate = formatDate(event.fields.end_date);
                 href: generateGoogleCalendarUrl({
                   title: event.title,
                   details: event.content,
-                  startDate: new Date(event.fields.start_date),
-                  endDate: new Date(event.fields.end_date),
+                  startDate: new Date(event.start_date),
+                  endDate: new Date(event.end_date),
                   location: '',
                   timezone: ''
                 })

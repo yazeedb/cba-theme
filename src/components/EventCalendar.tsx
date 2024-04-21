@@ -51,8 +51,8 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
     const eventsForDay = events
       .reduce((acc, event) => {
         const range = eachDayOfInterval({
-          start: new Date(event.fields.start_date),
-          end: new Date(event.fields.end_date || event.fields.start_date)
+          start: new Date(event.start_date),
+          end: new Date(event.end_date || event.start_date)
         });
 
         if (range.some((d) => isSameDay(d, date))) acc.push(event);
@@ -60,7 +60,7 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
         return acc;
       }, [] as Event[])
       .sort((a, b) =>
-        compareAsc(new Date(a.fields.start_date), new Date(b.fields.start_date))
+        compareAsc(new Date(a.start_date), new Date(b.start_date))
       );
 
     return {

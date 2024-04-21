@@ -1,36 +1,31 @@
 ---
 import { format } from 'date-fns';
 import { createEventDetailsUrl } from '../utils';
-import type { Event } from '../data/events';
+import type { Event, PriceRecurrenceCategory } from '../data/events';
 
 interface Props {
   event: Event;
 }
 
 const {
-  event: {
-    slug,
-    title,
-    content,
-    fields: { price_dollars, price_recurrence, start_date }
-  }
+  event: { slug, title, content, price_dollars, price_recurrence, start_date }
 } = Astro.props;
 
-const printRecurrence = (value: string) => {
+const printRecurrence = (value: PriceRecurrenceCategory) => {
   switch (value) {
-    case 'one-time':
-      return '';
+    case 'One-time fee':
+      return 'one-time';
 
-    case 'daily':
+    case 'Daily fee':
       return 'day';
 
-    case 'weekly':
+    case 'Weekly fee':
       return 'week';
 
-    case 'monthly':
+    case 'Monthly fee':
       return 'month';
 
-    case 'yearly':
+    case 'Yearly fee':
       return 'year';
 
     default:
@@ -39,11 +34,16 @@ const printRecurrence = (value: string) => {
 };
 
 const printPrice = () => {
-  if (price_dollars === 0) return 'Free';
+  console.log({ price_dollars, price_recurrence });
+  if (!price_dollars || price_dollars === '' || price_dollars === '0') {
+    return 'Free';
+  }
 
-  if (price_recurrence === 'one-time') return `$${price_dollars}`;
+  if (price_recurrence === 'One-time fee') {
+    return price_dollars;
+  }
 
-  return `$${price_dollars}/${printRecurrence(price_recurrence)}`;
+  return `${price_dollars}/${printRecurrence(price_recurrence)}`;
 };
 ---
 

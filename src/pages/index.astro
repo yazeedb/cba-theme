@@ -10,16 +10,16 @@ import { Carousel } from '../components/Carousel';
 import { getCarouselAds } from '../data/carouselAds';
 import { getEvents } from '../data/events';
 import { getPageSpoilers } from '../data/pageSpoilers';
-import { addWeeks, isWithinInterval } from 'date-fns';
+import { addMonths, isWithinInterval } from 'date-fns';
 import classNames from 'classnames';
 
 const carouselAds = await getCarouselAds();
 
 const events = await getEvents();
 const upcomingEvents = events.filter((event) =>
-  isWithinInterval(new Date(event.fields.start_date), {
+  isWithinInterval(new Date(event.start_date), {
     start: new Date(),
-    end: addWeeks(new Date(), 2)
+    end: addMonths(new Date(), 2)
   })
 );
 
