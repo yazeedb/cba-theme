@@ -26,17 +26,10 @@ export const Carousel = ({ images }: CarouselProps) => {
               className="embla__slide flex-none basis-full min-w-0 text-center flex justify-center items-center"
               key={image.src}
             >
-              <div className="aspect-w-16 aspect-h-9 w-full h-auto">
-                <img
-                  className="w-full h-full object-cover"
-                  src={image.src}
-                  alt={image.alt}
-                  width={imageDimensions.width}
-                  height={imageDimensions.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              <div
+                className="flex items-center relative w-full h-screen bg-cover bg-center"
+                style={{ backgroundImage: `url(${image.src})` }}
+              />
             </div>
           ))}
         </div>
