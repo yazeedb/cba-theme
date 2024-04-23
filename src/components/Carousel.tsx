@@ -27,8 +27,12 @@ export const Carousel = ({ images }: CarouselProps) => {
               key={image.src}
             >
               <div
-                className="flex items-center relative w-full h-screen bg-cover bg-center"
-                style={{ backgroundImage: `url(${image.src})` }}
+                className="flex items-center relative w-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${image.src})`,
+                  height: '50vh',
+                  maxHeight: '600px'
+                }}
               />
             </div>
           ))}
