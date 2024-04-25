@@ -28,7 +28,7 @@ const pageSpoilers = await getPageSpoilers();
 
 <Layout title="Home">
   <main>
-    <Carousel images={carouselAds.map((c) => c.image)} client:load />
+    <Carousel ads={carouselAds} client:load />
 
     <Section>
       <section class="flex justify-between items-center">

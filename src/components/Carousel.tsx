@@ -1,18 +1,13 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import cn from 'classnames';
-import type { ParsedImage } from '../data/common';
-
-const imageDimensions = {
-  width: 1000,
-  height: 600
-};
+import type { CarouselAd } from '../data/carouselAds';
 
 interface CarouselProps {
-  images: ParsedImage[];
+  ads: CarouselAd[];
 }
 
-export const Carousel = ({ images }: CarouselProps) => {
+export const Carousel = ({ ads }: CarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000 })
   ]);
@@ -21,19 +16,35 @@ export const Carousel = ({ images }: CarouselProps) => {
     <div className="embla overflow-hidden relative">
       <div className="embla_viewport" ref={emblaRef}>
         <div className="embla__container flex">
-          {images.map((image) => (
+          {ads.map((ad) => (
             <div
               className="embla__slide flex-none basis-full min-w-0 text-center flex justify-center items-center"
-              key={image.src}
+              key={ad.id}
             >
               <div
                 className="flex items-center relative w-full bg-cover bg-center"
                 style={{
-                  backgroundImage: `url(${image.src})`,
+                  backgroundImage: `url(${ad.image.src})`,
                   height: '50vh',
                   maxHeight: '600px'
                 }}
-              />
+              >
+                <div className="flex items-center bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full">
+                  <section className="flex flex-col gap-3 w-full text-center max-w-[80%] md:max-w-[50%] mx-auto">
+                    <h1 className="text-3xl sm:text-4xl font-bold text-primary-header-light">
+                      {ad.title}
+                    </h1>
+
+                    <p className="text-base sm:text-xl text-paragraph-light italic">
+                      {ad.description}
+                    </p>
+
+                    <a className="cta-button self-center" href={ad.ctaLink}>
+                      Learn More
+                    </a>
+                  </section>
+                </div>
+              </div>
             </div>
           ))}
         </div>

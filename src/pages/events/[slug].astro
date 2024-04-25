@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const events = await getEvents();
 
   return events.map((e) => ({
-    params: { slug: e.slug },
+    params: { slug: e.start_date },
     props: { events }
   }));
 }
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const { events } = Astro.props;
 
-const event = events.find((e) => e.slug === slug)!;
+const event = events.find((e) => e.start_date === slug)!;
 
 const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
 const startDate = formatDate(event.start_date);

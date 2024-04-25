@@ -10,13 +10,24 @@ export const getCarouselAds = () => {
 const parseCarouselAd = (data: CarouselAdResponse): CarouselAd => {
   return {
     id: data.id,
+    title: data.title.rendered,
+    description: data.acf.description,
+    ctaLink: data.acf.cta_link,
     image: parseFeaturedMedia(data._embedded['wp:featuredmedia'])
   };
 };
 
-interface CarouselAd {
+export interface CarouselAd {
   id: number;
+  title: string;
+  description: string;
+  ctaLink: string;
   image: ParsedImage;
 }
 
-interface CarouselAdResponse extends Post {}
+interface CarouselAdResponse extends Post {
+  acf: {
+    description: string;
+    cta_link: string;
+  };
+}

@@ -343,7 +343,7 @@ const Event = ({ event, className, linkToFullEvent }: EventProps) => {
 
   if (linkToFullEvent) {
     return (
-      <a href={createEventDetailsUrl(event.slug)} {...props}>
+      <a href={createEventDetailsUrl(event.start_date)} {...props}>
         {event.title}
       </a>
     );
