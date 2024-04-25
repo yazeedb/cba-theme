@@ -243,7 +243,3 @@ const Day = ({ children, className, ...rest }: DayProps) => {
     </div>
   );
 };
-
-interface EventProps extends HTMLProps<HTMLAnchorElement> {
-  event: Event;
-}
