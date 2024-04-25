@@ -168,58 +168,53 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
         ))}
 
         {days.map(({ date, day, isToday, eventsForDay }) => {
-          const children = (
-            <>
-              <time
-                className={cn(
-                  'w-5 h-5 m-1 flex items-center justify-center rounded-full p-3',
-                  {
-                    'bg-green-800 text-white font-bold': isToday
-                  }
-                )}
-                dateTime={date.toDateString()}
-              >
-                {day}
-              </time>
-
-              <div id="events" className="flex flex-col w-full gap-1">
-                {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
-                  <a
-                    key={e.id}
-                    className="bg-calendar-event whitespace-nowrap overflow-hidden w-full py-1 px-2"
-                    href={createEventDetailsUrl(e.start_date)}
-                  >
-                    {e.title}
-                  </a>
-                ))}
-              </div>
-
-              {!tooManyEvents(eventsForDay) ? null : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  id="ellipsis-horizontal-icon"
-                  className="w-6 h-6 mt-auto ml-1"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
-              )}
-            </>
-          );
-
           return (
             <Day
               key={day}
               className="text-gray-900 self-start flex flex-col text-2xs md:text-xs"
             >
-              {children}
+              <a href={createEventDetailsUrl(date.toDateString())}>
+                <time
+                  className={cn(
+                    'w-5 h-5 m-1 flex items-center justify-center rounded-full p-3',
+                    {
+                      'bg-green-800 text-white font-bold': isToday
+                    }
+                  )}
+                  dateTime={date.toDateString()}
+                >
+                  {day}
+                </time>
+
+                <div id="events" className="flex flex-col w-full gap-1">
+                  {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
+                    <div
+                      key={e.id}
+                      className="bg-calendar-event whitespace-nowrap overflow-hidden w-full py-1 px-2"
+                    >
+                      {e.title}
+                    </div>
+                  ))}
+                </div>
+
+                {!tooManyEvents(eventsForDay) ? null : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    id="ellipsis-horizontal-icon"
+                    className="w-6 h-6 mt-auto ml-1"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    />
+                  </svg>
+                )}
+              </a>
             </Day>
           );
         })}
