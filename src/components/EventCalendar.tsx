@@ -184,9 +184,13 @@ export const EventCalendar = ({ events }: EventCalendarProps) => {
 
               <div id="events" className="flex flex-col w-full gap-1">
                 {eventsForDay.slice(0, maxVisibleEventsPerDay).map((e) => (
-                  <Event key={e.id} event={e} className="w-full py-1 px-2">
+                  <a
+                    key={e.id}
+                    className="bg-calendar-event whitespace-nowrap overflow-hidden w-full py-1 px-2"
+                    href={createEventDetailsUrl(e.start_date)}
+                  >
                     {e.title}
-                  </Event>
+                  </a>
                 ))}
               </div>
 
@@ -243,19 +247,3 @@ const Day = ({ children, className, ...rest }: DayProps) => {
 interface EventProps extends HTMLProps<HTMLAnchorElement> {
   event: Event;
 }
-
-const Event = ({ event, className }: EventProps) => {
-  const props = {
-    key: event.id,
-    className: cn(
-      'bg-calendar-event whitespace-nowrap overflow-hidden',
-      className
-    )
-  };
-
-  return (
-    <a href={createEventDetailsUrl(event.start_date)} {...props}>
-      {event.title}
-    </a>
-  );
-};
