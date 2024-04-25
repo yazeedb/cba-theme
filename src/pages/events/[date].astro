@@ -28,7 +28,6 @@ const isBetween = (date: string, startDate: string, endDate: string) => {
   );
 };
 
-// TODO: This can easily 404, add 404 logic/view.
 const matchingEvents = events.filter((e) =>
   isBetween(date, e.start_date, e.end_date)
 )!;
