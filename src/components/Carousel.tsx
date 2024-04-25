@@ -102,5 +102,5 @@ export const Carousel = ({ ads }: CarouselProps) => {
 };
 
 const prevNextClassName =
-  'absolute top-1/2 -translate-y-1/2 text-white rounded-full bg-black opacity-70 p-2';
+  'hidden sm:block absolute top-1/2 -translate-y-1/2 text-white rounded-full bg-black opacity-70 p-2';
 const arrowClassName = 'w-4 h-4 xs:w-6 xs:h-6 sm:w-10 sm:h-10';
