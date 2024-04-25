@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
-import { format, isAfter, isSameDay } from 'date-fns';
+import { format, isAfter, isBefore, isSameDay } from 'date-fns';
 import {
   getEvents,
   formatDateTimeForUrl,
@@ -21,9 +21,16 @@ export async function getStaticPaths() {
 const { date } = Astro.params;
 const { events } = Astro.props;
 
+const isBetween = (date: string, startDate: string, endDate: string) => {
+  return (
+    !isBefore(date, formatDateTimeForUrl(startDate)) &&
+    !isAfter(date, formatDateTimeForUrl(endDate))
+  );
+};
+
 // TODO: This can easily 404, add 404 logic/view.
-const matchingEvents = events.filter(
-  (e) => !isAfter(formatDateTimeForUrl(e.start_date), date)
+const matchingEvents = events.filter((e) =>
+  isBetween(date, e.start_date, e.end_date)
 )!;
 
 const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
@@ -59,7 +66,7 @@ const formatTime = (date: string) => format(date, 'h:mm aa');
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
         {
-          [...matchingEvents, ...matchingEvents, ...matchingEvents].map((e) => {
+          matchingEvents.map((e) => {
             const startDate = formatDate(e.start_date);
             const endDate = formatDate(e.end_date);
             const startTime = formatTime(e.start_date);
