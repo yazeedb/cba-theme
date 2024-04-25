@@ -220,6 +220,9 @@ namespace EventsCalendar {
   }
 }
 
+export const venueToFullAddress = (venue: EventsCalendar.Venue) =>
+  [venue.address, venue.city, venue.state, venue.country].join(', ');
+
 export function createGoogleCalendarUrl(event: Event): string {
   const baseUrl = 'https://calendar.google.com/calendar/r/eventedit';
   const params = new URLSearchParams();
@@ -250,7 +253,7 @@ export function createGoogleCalendarUrl(event: Event): string {
   }
 
   if (event.venue) {
-    params.append('location', event.venue.address);
+    params.append('location', venueToFullAddress(event.venue));
   }
 
   if (event.timezone) {
@@ -261,10 +264,10 @@ export function createGoogleCalendarUrl(event: Event): string {
     params.append('sprop', `website:${event.website}`);
   }
 
-  if (event.organizer && event.organizer.length > 0) {
-    const emails = event.organizer.map((org) => org.email).join(',');
-    params.append('add', emails);
-  }
+  // if (event.organizer && event.organizer.length > 0) {
+  //   const emails = event.organizer.map((org) => org.email).join(',');
+  //   params.append('add', emails);
+  // }
 
   return `${baseUrl}?${params.toString()}`;
 }

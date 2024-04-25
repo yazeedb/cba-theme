@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  event: { slug, title, description, cost, price_recurrence, start_date }
+  event: { title, description, cost, price_recurrence, start_date }
 } = Astro.props;
 
 const printRecurrence = (value: PriceRecurrenceCategory) => {
@@ -62,7 +62,7 @@ const printPrice = () => {
     />
 
     <a
-      href={createEventDetailsUrl(slug)}
+      href={createEventDetailsUrl(start_date)}
       class="cta-button w-full block text-center">Register</a
     >
   </div>
