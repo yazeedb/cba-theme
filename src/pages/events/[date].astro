@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
-import { format, isSameDay } from 'date-fns';
+import { format, isAfter, isSameDay } from 'date-fns';
 import {
   getEvents,
   formatDateTimeForUrl,
@@ -23,7 +23,7 @@ const { events } = Astro.props;
 
 // TODO: This can easily 404, add 404 logic/view.
 const matchingEvents = events.filter(
-  (e) => formatDateTimeForUrl(e.start_date) === date
+  (e) => !isAfter(formatDateTimeForUrl(e.start_date), date)
 )!;
 
 const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
@@ -49,8 +49,12 @@ const formatTime = (date: string) => format(date, 'h:mm aa');
               d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"></path>
           </svg>
 
-          All Events
+          View All Events
         </a>
+
+        <h1 class="text-3xl sm:text-4xl font-bold text-primary-header-dark">
+          Events on {formatDate(date)}
+        </h1>
       </header>
 
       <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
@@ -83,9 +87,9 @@ const formatTime = (date: string) => format(date, 'h:mm aa');
                 </section>
 
                 <section class="mt-3 flex flex-col gap-2">
-                  <h1 class="section-heading text-primary-header-dark">
+                  <h2 class="section-heading text-primary-header-dark">
                     {e.title}
-                  </h1>
+                  </h2>
 
                   <h2 class="font-semibold">{e.venue.venue}</h2>
                   <h3 class="text-paragraph-dark">
