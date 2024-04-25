@@ -11,7 +11,7 @@ import {
 } from 'date-fns';
 import { useState, type HTMLProps } from 'react';
 import { Modal } from './Modal';
-import { createEventDetailsUrl } from '../utils';
+import { createEventDetailsUrl } from '../data/events';
 import type { Event } from '../data/events';
 
 interface EventCalendarProps {
