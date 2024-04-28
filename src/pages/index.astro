@@ -12,6 +12,7 @@ import { getEvents } from '../data/events';
 import { getPageSpoilers } from '../data/pageSpoilers';
 import { addMonths, isWithinInterval } from 'date-fns';
 import classNames from 'classnames';
+import { getContactInfo } from '../data/contactInfo';
 
 const carouselAds = await getCarouselAds();
 
@@ -24,6 +25,8 @@ const upcomingEvents = events.filter((event) =>
 );
 
 const pageSpoilers = await getPageSpoilers();
+
+const contactInfo = await getContactInfo();
 ---
 
 <Layout title="Home">
@@ -82,47 +85,56 @@ const pageSpoilers = await getPageSpoilers();
       ))
     }
 
-    <Section containerClass="bg-slate-100">
-      <h2 class="section-heading text-primary-header-dark">Connect With Us</h2>
+    {
+      contactInfo === null ? null : (
+        <Section containerClass="bg-slate-100">
+          <h2 class="section-heading text-primary-header-dark">
+            Connect With Us
+          </h2>
 
-      <p class="text-paragraph-dark">
-        We are located at
-        {
-          /*
+          <p class="text-paragraph-dark">
+            We are located at
+            {/*
             The "-mr-1" class below only exists because Prettier's formatting forces
             an empty space between the CBA's address and punctuation mark.
 
             This is a little hack to force less spacing, I wish I didn't have to do it >:(
-          */
-        }
-        <NewTabLink
-          href="https://maps.google.com?q=Circassian Benevolent Association Wayne NJ"
-          class="text-href-color -mr-1"
-        >
-          383 Oldham Road, Wayne, NJ 07470
-        </NewTabLink>.
-      </p>
+          */}
+            <NewTabLink
+              href="https://maps.google.com?q=Circassian Benevolent Association Wayne NJ"
+              class="text-href-color -mr-1"
+            >
+              {contactInfo.address}
+            </NewTabLink>
+          </p>
 
-      <p class="text-paragraph-dark">
-        Our main office number is
-        <a href="tel:+9737908979" class="text-href-color">(973) 790-8979</a>.
-      </p>
+          <p class="text-paragraph-dark">
+            Our main office number is
+            <a
+              href={`tel:+${contactInfo.phone_number}`}
+              class="text-href-color"
+            >
+              {contactInfo.phone_number}
+            </a>
+          </p>
 
-      <p class="text-paragraph-dark">Check out our social media pages!</p>
+          <p class="text-paragraph-dark">Check out our social media pages!</p>
 
-      <div class="flex gap-base">
-        <NewTabLink href="https://www.youtube.com/@cba_america">
-          <YouTube class="w-12 h-auto" />
-        </NewTabLink>
+          <div class="flex gap-base">
+            <NewTabLink href={contactInfo.youtube}>
+              <YouTube class="w-12 h-auto" />
+            </NewTabLink>
 
-        <NewTabLink href="https://www.facebook.com/CBA.America/">
-          <Facebook class="w-12 h-auto" />
-        </NewTabLink>
+            <NewTabLink href={contactInfo.facebook}>
+              <Facebook class="w-12 h-auto" />
+            </NewTabLink>
 
-        <NewTabLink href="https://www.instagram.com/cba_america/?hl=en">
-          <Instagram class="w-12 h-auto" />
-        </NewTabLink>
-      </div>
-    </Section>
+            <NewTabLink href={contactInfo.instagram}>
+              <Instagram class="w-12 h-auto" />
+            </NewTabLink>
+          </div>
+        </Section>
+      )
+    }
   </main>
 </Layout>
