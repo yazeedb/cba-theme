@@ -91,6 +91,7 @@ export interface Post {
 export interface ParsedImage {
   src: string;
   alt: string;
+  mediaDetails?: MediaDetails;
 }
 
 export const parseFeaturedMedia = (media?: EmbeddedMedia[]): ParsedImage => {
@@ -98,8 +99,11 @@ export const parseFeaturedMedia = (media?: EmbeddedMedia[]): ParsedImage => {
 
   const [image] = media;
 
+  if (!image) return { src: '', alt: '' };
+
   return {
-    src: image?.link ?? '',
-    alt: image?.alt_text ?? ''
+    src: image.link,
+    alt: image.alt_text,
+    mediaDetails: image.media_details
   };
 };

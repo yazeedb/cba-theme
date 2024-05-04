@@ -5,6 +5,7 @@ import Section from '../components/Section.astro';
 import HeroCoverImage from '../components/HeroCoverImage.astro';
 import { getBooks } from '../data';
 import { getPageAndPageChildren } from '../data/page';
+import { Picture } from 'astro:assets';
 
 const books = await getBooks();
 
@@ -50,6 +51,8 @@ const { parent, children } = await getPageAndPageChildren('history');
 
           const color = colors[colorCycle];
 
+          const { src, mediaDetails } = childPage.image;
+
           return (
             <Section containerClass={colors[colorCycle]?.bg ?? ''}>
               <h2 class={color?.heading}>{childPage.title}</h2>
@@ -58,10 +61,15 @@ const { parent, children } = await getPageAndPageChildren('history');
                 <div class={color?.paragraph} set:html={childPage.content} />
               </div>
 
-              <img
+              <Picture
                 class="rounded"
-                src={childPage.image.src}
                 alt={childPage.image.alt}
+                src={{
+                  src: src,
+                  width: mediaDetails?.width ?? 800,
+                  height: mediaDetails?.height ?? 400,
+                  format: (mediaDetails?.file.split('.').pop() as any) ?? 'jpeg'
+                }}
               />
             </Section>
           );
