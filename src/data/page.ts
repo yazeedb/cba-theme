@@ -1,6 +1,12 @@
 import { parseFeaturedMedia, type Page, type ParsedImage } from './common';
 import { routes } from './routes';
 
+export const getOnePage = (id: number) => {
+  return fetch(routes.page(id))
+    .then((res) => res.json())
+    .then(parsePage);
+};
+
 export const getPageAndPageChildren = (parentSlug: string) => {
   return fetch(routes.pagesBySlug(parentSlug))
     .then((res) => res.json())
@@ -31,6 +37,7 @@ const parsePage = (page: Page): ParsedPage => {
   return {
     id: page.id,
     title: page.title.rendered,
+    slug: page.slug,
     content: page.content.rendered,
     subtitle: page.acf.page_subtitle,
     image: parseFeaturedMedia(page._embedded['wp:featuredmedia']),
@@ -42,6 +49,7 @@ interface ParsedPage {
   id: number;
   title: string;
   content: string;
+  slug: string;
   subtitle: string;
   image: ParsedImage;
   order: number;
