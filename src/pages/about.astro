@@ -1,13 +1,12 @@
 ---
 import cn from 'classnames';
-import Layout from '../layouts/Layout.astro';
-import Section from '../components/Section.astro';
 import HeroCoverImage from '../components/HeroCoverImage.astro';
-import { getBoardMembers } from '../data/boardMembers';
+import Section from '../components/Section.astro';
 import type { BoardMember } from '../data/boardMembers';
-import { getVision } from '../data/vision';
+import { getBoardMembers } from '../data/boardMembers';
+import { getPageAndPageChildren } from '../data/page';
 import { getTenets } from '../data/tenets';
-import { getPage } from '../data/page';
+import Layout from '../layouts/Layout.astro';
 
 const tenets = await getTenets();
 
@@ -23,27 +22,31 @@ for (const member of boardMembers.reverse()) {
   }
 }
 
-const vision = await getVision();
-
-const about = await getPage(201);
+const { parent, children } = await getPageAndPageChildren('about');
 ---
 
 <Layout title="About">
   <main>
     <HeroCoverImage
-      title={about.title}
-      subtitle={about.subtitle}
-      backgroundImage={about.image.src}
+      title={parent.title}
+      subtitle={parent.subtitle}
+      backgroundImage={parent.image.src}
     />
 
-    <Section containerClass="bg-slate-100">
-      <h2 class="section-heading text-primary-header-dark">{vision.title}</h2>
+    {
+      children.map((childPage) => (
+        <Section containerClass="bg-slate-100">
+          <h2 class="section-heading text-primary-header-dark">
+            {childPage.title}
+          </h2>
 
-      <div
-        class="section-paragraph text-paragraph-dark"
-        set:html={vision.content}
-      />
-    </Section>
+          <div
+            class="section-paragraph text-paragraph-dark"
+            set:html={childPage.content}
+          />
+        </Section>
+      ))
+    }
 
     <Section containerClass="text-paragraph-light">
       <h2 class="section-heading text-primary-header-dark">Tenets</h2>

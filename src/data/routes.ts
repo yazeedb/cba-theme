@@ -10,5 +10,7 @@ export const routes = {
   contactInfo: `${wpApiRoute}/cba-contact-infos`,
   tenets: `${wpApiRoute}/tenet?acf_format=standard`,
   page: (id: number) => `${wpApiRoute}/pages/${id}?_embed`,
+  pagesBySlug: (slug: string) => `${wpApiRoute}/pages?slug=${slug}&_embed`,
+  pagesByParent: (id: number) => `${wpApiRoute}/pages?parent=${id}&_embed`,
   post: (id: number) => `${wpApiRoute}/posts/${id}`
 };

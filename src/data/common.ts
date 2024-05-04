@@ -1,4 +1,5 @@
 export interface Page extends Post {
+  menu_order: number | undefined;
   // Make sure to update page_subtitle's allowlist, because today it only
   // supports About/History, so this guarantee may be invalid if you
   // add pages without allowlisting them.
