@@ -3,8 +3,8 @@ import cn from 'classnames';
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import HeroCoverImage from '../components/HeroCoverImage.astro';
-import { getBooks } from '../data';
 import { getPageAndPageChildren } from '../data/page';
+import { getBooks } from '../data/books';
 import { Picture } from 'astro:assets';
 
 const books = await getBooks();
@@ -98,7 +98,7 @@ const { parent, children } = await getPageAndPageChildren('history');
             >
               <img
                 class="flex-none w-[300px] h-full rounded"
-                src={book.image_url}
+                src={book.image.src}
                 alt={book.title}
               />
 

@@ -1,4 +1,11 @@
 import { parseFeaturedMedia, type ParsedImage, type Post } from './common';
+import { routes } from './routes';
+
+export const getBooks = () => {
+  return fetch(routes.books)
+    .then((res) => res.json())
+    .then((data: BookResponse[]) => data.map(parseBook));
+};
 
 const parseBook = (data: BookResponse): Book => {
   return {

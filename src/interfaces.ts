@@ -27,13 +27,6 @@ export interface BoardMember {
   team: string;
 }
 
-export interface Book {
-  image_url: string;
-  title: string;
-  author: string;
-  description: string;
-}
-
 export interface CalendarEvent {
   id: string;
   title: string;
