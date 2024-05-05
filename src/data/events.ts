@@ -232,14 +232,14 @@ export function createGoogleCalendarUrl(event: Event): string {
     const pad = (num: number) => num.toString().padStart(2, '0');
 
     if (allDay) {
-      return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}`;
+      return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
     } else {
-      return `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}${pad(d.getUTCSeconds())}Z`;
+      return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}Z`;
     }
   }
 
-  const startDate = formatDateTime(event.start_date, event.all_day);
-  const endDate = formatDateTime(event.end_date, event.all_day);
+  const startDate = formatDateTime(event.utc_start_date, event.all_day);
+  const endDate = formatDateTime(event.utc_end_date, event.all_day);
   const dates = event.all_day
     ? `${startDate}/${endDate}`
     : `${startDate}/${endDate}`;
