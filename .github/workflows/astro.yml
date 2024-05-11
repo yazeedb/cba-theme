@@ -29,11 +29,11 @@ jobs:
     - name: Build the Astro site
       run: npm run build  # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
 
-    - name: Deploy via SFTP
-      uses: SamKirkland/FTP-Deploy-Action@4.2.0
+    - name: SFTP Deploy
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        server: ${{ secrets.SFTP_SERVER }}  # Hostname of the SFTP server
-        username: ${{ secrets.SFTP_USERNAME }}  # SFTP login username
-        password: ${{ secrets.SFTP_PASSWORD }}  # SFTP login password
-        server-dir: ${{ secrets.SFTP_DIRECTORY }} # Path on the server to deploy to
-        local-dir: "dist/"  # Local directory to upload, usually the build output directory
+            server: ${{ secrets.SFTP_SERVER }}  # Hostname of the SFTP server
+            username: ${{ secrets.SFTP_USERNAME }}  # SFTP login username
+            password: ${{ secrets.SFTP_PASSWORD }}  # SFTP login password
+            remote_path: ${{ secrets.SFTP_DIRECTORY }} # Path on the server to deploy to
+            local_path: './dist/*'
