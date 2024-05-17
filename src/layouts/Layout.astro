@@ -1,12 +1,14 @@
 ---
+import cn from 'classnames';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
+  shouldUseFlexFooter?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, shouldUseFlexFooter } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +27,7 @@ const { title } = Astro.props;
     />
     <title>{title}</title>
   </head>
-  <body>
+  <body class={cn({ 'flex-footer': shouldUseFlexFooter })}>
     <Nav />
 
     <slot />
@@ -42,6 +44,10 @@ const { title } = Astro.props;
 
   html {
     font-family: montserrat, system-ui, sans-serif;
+  }
+
+  body.flex-footer {
+    @apply flex flex-col justify-between h-screen;
   }
 
   @media (max-width: theme(screens.md)) {
