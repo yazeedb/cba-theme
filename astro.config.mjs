@@ -6,6 +6,12 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [tailwind(), react()],
   image: {
-    domains: ['localhost:8888', 'localhost', 'yazeedb.com']
+    domains: [
+      'localhost:8888',
+      'localhost',
+      'yazeedb.com',
+      'cbaamerica.org',
+      'staging.cbaamerica.org'
+    ]
   }
 });
