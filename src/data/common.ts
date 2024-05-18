@@ -102,7 +102,7 @@ export const parseFeaturedMedia = (media?: EmbeddedMedia[]): ParsedImage => {
   if (!image) return { src: '', alt: '' };
 
   return {
-    src: image.link,
+    src: image.media_details.sizes.full.source_url,
     alt: image.alt_text,
     mediaDetails: image.media_details
   };
