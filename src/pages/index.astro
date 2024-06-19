@@ -60,7 +60,15 @@ const contactInfo = await getContactInfo();
       </section>
 
       <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {upcomingEvents.map((event) => <EventCard event={event} />)}
+        {
+          upcomingEvents.length > 0 ? (
+            upcomingEvents.map((event) => <EventCard event={event} />)
+          ) : (
+            <p class="text-paragraph-dark">
+              There are no upcoming events at this time. Please check back soon!
+            </p>
+          )
+        }
       </section>
     </Section>
 
