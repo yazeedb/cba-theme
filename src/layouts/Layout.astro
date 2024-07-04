@@ -28,11 +28,13 @@ const { title } = Astro.props;
     <ViewTransitions />
   </head>
   <body>
-    <Nav />
+    <slot name="content-takeover">
+      <Nav />
 
-    <slot />
+      <slot />
 
-    <Footer />
+      <Footer />
+    </slot>
     <style is:global>
       @tailwind utilities;
 
