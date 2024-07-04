@@ -2,14 +2,18 @@
 import Layout from '../../layouts/Layout.astro';
 import { EventCalendar } from '../../components/EventCalendar';
 import { getEvents } from '../../data/events';
+import Footer from '../../components/Footer.astro';
+import Nav from '../../components/Nav.astro';
 
 const events = await getEvents();
 ---
 
 <Layout title="Events">
-  <main>
-    <section class="py-6 sm:max-w-7xl mx-auto">
+  <main slot="content-takeover" class="flex flex-col justify-between h-screen">
+    <Nav />
+    <section class="h-full w-full py-6 sm:max-w-7xl mx-auto">
       <EventCalendar events={events} client:only="react" />
     </section>
+    <Footer />
   </main>
 </Layout>
