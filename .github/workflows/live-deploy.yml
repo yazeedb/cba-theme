@@ -33,5 +33,5 @@ jobs:
           server: ${{ secrets.SFTP_SERVER }} # Hostname of the SFTP server
           username: ${{ secrets.LIVE_SFTP_USERNAME }} # SFTP login username
           password: ${{ secrets.LIVE_SFTP_PASSWORD }} # SFTP login password
-          remote_path: ${{ secrets.LIVE_SFTP_DIRECTORY_PRODUCTION }} # Path on the server to deploy to production
+          remote_path: ${{ secrets.LIVE_SFTP_DIRECTORY }} # Path on the server to deploy to production
           local_path: './dist/*'
