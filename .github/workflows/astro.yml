@@ -1,9 +1,14 @@
-name: Deploy the website
+name: Deploy the website"
 
 on:
   push:
     branches: ['main']
   workflow_dispatch:
+    inputs:
+      golive:
+        description: 'Do you wish to also deploy to the live site?'
+        required: false
+        default: 'false'
 
 jobs:
   build-and-deploy:
