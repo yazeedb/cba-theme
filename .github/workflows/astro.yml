@@ -1,12 +1,13 @@
-name: Live website deployment
+name: Staging website deployment
 
 on:
+  push:
+    branches: ['main']
   workflow_dispatch:
 
 jobs:
-  deploy-to-production:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,7 +19,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "PUBLIC_WP_API=${{ secrets.LIVE_PUBLIC_WP_API }}" >> $GITHUB_ENV
+          echo "PUBLIC_WP_API=${{ secrets.PUBLIC_WP_API }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
@@ -27,7 +28,17 @@ jobs:
       - name: Build the Astro site
         run: npm run build # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
 
+      - name: SFTP Deploy to Staging
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.SFTP_SERVER }} # Hostname of the SFTP server
+          username: ${{ secrets.SFTP_USERNAME }} # SFTP login username
+          password: ${{ secrets.SFTP_PASSWORD }} # SFTP login password
+          remote_path: ${{ secrets.SFTP_DIRECTORY }} # Path on the server to deploy to
+          local_path: './dist/*'
+
       - name: SFTP Deploy to Production
+        if: github.event.client_payload.golive == 'true'
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.SFTP_SERVER }} # Hostname of the SFTP server
