@@ -1,4 +1,4 @@
-name: Staging website deployment
+name: Deploy the website
 
 on:
   push:
