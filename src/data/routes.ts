@@ -1,5 +1,4 @@
 const baseRoute = import.meta.env.PUBLIC_WP_API;
-console.log('baseRoute is', baseRoute);
 const wpApiRoute = `${baseRoute}/wp/v2`;
 const eventsApiRoute = `${baseRoute}/tribe/events/v1/events`;
 
