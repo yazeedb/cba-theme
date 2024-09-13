@@ -29,7 +29,7 @@ jobs:
       - name: Build the Astro site for Staging
         env:
           PUBLIC_WP_API: ${{ secrets.PUBLIC_WP_API }}
-        run: echo $PUBLIC_WP_API && npm run build # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
+        run: npm run build # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
 
       - name: SFTP Deploy to Staging
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
@@ -41,9 +41,10 @@ jobs:
           local_path: './dist/*'
 
       - name: Build the Astro site for Production (Live)
+        if: github.event.inputs.golive == 'true'
         env:
           PUBLIC_WP_API: ${{ secrets.LIVE_PUBLIC_WP_API }}
-        run: echo $PUBLIC_WP_API && npm run build # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
+        run: npm run build # Ensure this script exists in your package.json and builds your site into a 'dist' folder or similar
 
       - name: SFTP Deploy to Production (Live)
         if: github.event.inputs.golive == 'true'
