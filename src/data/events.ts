@@ -221,7 +221,10 @@ namespace EventsCalendar {
 }
 
 export const venueToFullAddress = (venue: EventsCalendar.Venue) =>
-  [venue.address, venue.city, venue.state, venue.country].join(', ');
+  [venue.address, venue.city, venue.state, venue.country]
+    .map((v) => v?.trim())
+    .filter(Boolean)
+    .join(', ');
 
 export function createGoogleCalendarUrl(event: Event): string {
   const baseUrl = 'https://calendar.google.com/calendar/r/eventedit';
