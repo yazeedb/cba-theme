@@ -1,0 +1,121 @@
+---
+import { format, isSameDay } from 'date-fns';
+import Section from '../../components/Section.astro';
+import {
+  createGoogleCalendarUrl,
+  getEvents,
+  venueToFullAddress
+} from '../../data/events';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const events = await getEvents();
+
+  return events.map((e) => {
+    return {
+      params: { id: e.id },
+      props: { events }
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { events } = Astro.props;
+
+const matchingEvent = events.find((e) => e.id.toString() === id.toString())!;
+
+const formatDate = (date: string) => format(date, 'MMMM d, yyyy');
+const formatTime = (date: string) => format(date, 'h:mm aa');
+
+const startDate = formatDate(matchingEvent.start_date);
+const endDate = formatDate(matchingEvent.end_date);
+const startTime = formatTime(matchingEvent.start_date);
+const endTime = formatTime(matchingEvent.end_date);
+---
+
+<Layout title={matchingEvent.title}>
+  <main>
+    <Section containerClass="mt-4 text-paragraph-dark">
+      <header id="event-header">
+        <a href="/events" class="flex items-center gap-1 text-href-color mb-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"></path>
+          </svg>
+
+          View All Events
+        </a>
+
+        <h1 class="text-3xl sm:text-4xl font-bold text-primary-header-dark">
+          {matchingEvent.title}
+        </h1>
+      </header>
+
+      <section>
+        <div class="mb-4">
+          <span>
+            {
+              isSameDay(matchingEvent.start_date, matchingEvent.end_date)
+                ? startDate
+                : `${startDate} - ${endDate}`
+            }
+          </span>
+          <span> | </span>
+          <span>
+            {matchingEvent.all_day ? 'All day' : `${startTime} - ${endTime}`}
+          </span>
+        </div>
+
+        <img
+          class="rounded"
+          alt={matchingEvent.title}
+          src={matchingEvent.image.src}
+        />
+      </section>
+
+      <section class="mt-3 flex flex-col gap-2">
+        <h2 class="font-semibold">{matchingEvent.venue}</h2>
+        <h3 class="text-paragraph-dark">
+          {venueToFullAddress(matchingEvent.venue)}
+        </h3>
+        <article
+          id="event-details"
+          class="sm:text-lg text-base text-paragraph-dark"
+          set:html={matchingEvent.description}
+        />
+
+        <a
+          class="cta-button self-start flex gap-2 mt-2"
+          href={createGoogleCalendarUrl(matchingEvent)}
+          target="blank"
+          rel="noreferrer noopener"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+            ></path>
+          </svg>
+          Add to Google
+        </a>
+      </section>
+    </Section>
+  </main>
+</Layout>
