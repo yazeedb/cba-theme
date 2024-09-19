@@ -18,6 +18,7 @@ export const createEventDetailsUrl = (date: string) =>
 const parseEvent = (data: EventsCalendar.Event): Event => {
   return {
     ...data,
+    title: he.decode(data.title),
     price_recurrence: parsePriceRecurrence(data),
     image:
       data.image === false
