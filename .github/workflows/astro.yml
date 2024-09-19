@@ -1,8 +1,6 @@
 name: Deploy the website
 
 on:
-  push:
-    branches: ['main']
   workflow_dispatch:
     inputs:
       golive:
